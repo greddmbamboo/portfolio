@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+---
+<BaseLayout title={`${project.title} — Gaige Redd`} description={project.summary}>
+  <article class="case-study">
+    <header class="case-hero wrap">
+      <a class="back-link" href="/#work">← All work</a>
+      <p class="eyebrow">Case study {project.number}</p>
+      <h1>{project.title}</h1>
+      <p class="case-summary">{project.summary}</p>
+      <div class="case-meta"><p><span>Year</span>{project.year}</p><p><span>Organization</span>{project.client}</p><p><span>Focus</span>{project.tags.join(' · ')}</p></div>
+    </header>
+    <div class:list={['case-cover', project.accent]} role="img" aria-label={`${project.title} project image placeholder`}><span>PROJECT IMAGE PLACEHOLDER</span><strong>{project.number}</strong></div>
+    <div class="case-body wrap">
+      <section><p class="eyebrow">01 / Problem</p><h2>The challenge worth solving.</h2><p class="body-lede">{project.problem}</p></section>
+      <section class="split-section"><div><p class="eyebrow">02 / Context</p><h2>Why this, why now.</h2></div><p>{project.context}</p></section>
+      <section class="split-section"><div><p class="eyebrow">03 / My role</p><h2>Where I led.</h2></div><p>{project.role}</p></section>
+      <section><p class="eyebrow">04 / Approach</p><h2>From ambiguity to action.</h2><ol class="case-list">{project.approach.map((item, i) => <li><span>0{i + 1}</span><p>{item}</p></li>)}</ol></section>
+      <section class="decision-section"><p class="eyebrow">05 / Key decisions</p><h2>The choices that shaped the work.</h2><ul>{project.decisions.map(item => <li>{item}</li>)}</ul></section>
+      <section class="outcome"><p class="eyebrow">06 / Outcome</p><h2>What changed.</h2><p class="body-lede">{project.outcome}</p></section>
+      <nav class="case-next" aria-label="Case study navigation"><a href="/#work">← Back to selected work</a><a href="mailto:hello@gaigeredd.com">Discuss this work ↗</a></nav>
+    </div>
+  </article>
+</BaseLayout>

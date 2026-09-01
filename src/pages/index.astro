@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+<BaseLayout>
+  <section class="hero wrap">
+    <p class="availability"><span></span> Open to the right next chapter</p>
+    <h1>I shape products<br />people <em>want</em> to use<span>.</span></h1>
+    <div class="hero-bottom">
+      <p>I'm Gaige — a product design leader who connects customer insight, business strategy, and high-performing teams.</p>
+      <a href="#work" class="down-link">Selected work <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
+
+  <section id="work" class="work wrap section-pad">
+    <div class="section-heading"><p class="eyebrow">Selected work</p><p class="section-count">01—04</p></div>
+    <div class="projects-grid">
+      {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
+    </div>
+  </section>
+
+  <section id="leadership" class="leadership dark-section">
+    <div class="wrap">
+      <div class="section-heading"><p class="eyebrow">How I lead</p><p class="section-count">Beyond the pixels</p></div>
+      <h2>Design is a team sport.<br /><em>Clarity</em> is the advantage.</h2>
+      <div class="principles">
+        <article><span>01</span><h3>Make the strategy tangible</h3><p>I turn ambition into a shared picture of the customer, the opportunity, and what we're choosing to do next.</p></article>
+        <article><span>02</span><h3>Build systems, not dependencies</h3><p>I create the conditions for teams to make sound decisions without waiting for permission or perfect information.</p></article>
+        <article><span>03</span><h3>Raise quality with care</h3><p>Clear standards, honest critique, and thoughtful coaching help talented people do the strongest work of their careers.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about wrap section-pad">
+    <div class="section-heading"><p class="eyebrow">About</p><p class="section-count">The short version</p></div>
+    <div class="about-grid">
+      <div class="portrait-placeholder" role="img" aria-label="Portrait of Gaige Redd — image coming soon"><span>PORTRAIT<br />PLACEHOLDER</span></div>
+      <div class="about-copy">
+        <h2>Curious by nature.<br />Practical by choice.</h2>
+        <p class="large-copy">I help organizations find the signal in the noise — then build the teams and products to act on it.</p>
+        <p>This is placeholder copy for Gaige's background, leadership journey, and point of view. Replace it with a concise story that connects the work, the person, and what comes next.</p>
+        <div class="text-links">
+          <a href="mailto:hello@gaigeredd.com">Get in touch ↗</a>
+          <span class="disabled-link" aria-label="Resume coming soon">Résumé — coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
