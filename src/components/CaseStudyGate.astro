@@ -1,0 +1,51 @@
+<div class="case-gate" data-case-gate hidden>
+  <div class="case-gate-card" role="dialog" aria-modal="true" aria-labelledby="case-gate-title">
+    <p class="eyebrow">Selected work</p>
+    <h1 id="case-gate-title">This case study is protected.</h1>
+    <p>Enter the portfolio password to continue.</p>
+    <form data-case-gate-form>
+      <label for="case-study-password">Password</label>
+      <div class="case-gate-field">
+        <input id="case-study-password" name="password" type="password" autocomplete="current-password" required />
+        <button type="submit">View case study</button>
+      </div>
+      <p class="case-gate-error" data-case-gate-error aria-live="polite"></p>
+    </form>
+    <a href="/#work">← Back to selected work</a>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const gate = document.querySelector('[data-case-gate]');
+    const form = document.querySelector('[data-case-gate-form]');
+    const error = document.querySelector('[data-case-gate-error]');
+    const input = document.querySelector('#case-study-password');
+    const accessKey = 'gaige-case-study-access';
+    const passwordHash = '9881928f60e14fcbd7a28d2166ee4e8ba456daa9df696159dcae35050762895b';
+
+    if (!gate || !form || !error || !input) return;
+    if (sessionStorage.getItem(accessKey) === 'granted') return;
+
+    gate.hidden = false;
+    document.documentElement.classList.add('case-study-locked');
+    requestAnimationFrame(() => input.focus());
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const value = new TextEncoder().encode(input.value);
+      const digest = await crypto.subtle.digest('SHA-256', value);
+      const hash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+
+      if (hash === passwordHash) {
+        sessionStorage.setItem(accessKey, 'granted');
+        document.documentElement.classList.remove('case-study-locked');
+        gate.remove();
+        return;
+      }
+
+      error.textContent = 'That password doesn’t match. Try again.';
+      input.select();
+    });
+  })();
+</script>

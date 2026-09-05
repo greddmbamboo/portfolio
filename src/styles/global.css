@@ -171,6 +171,21 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .footer-cta { font-size:clamp(38px,6vw,88px); line-height:1; letter-spacing:-.05em; border-bottom:2px solid; }.footer-cta span { font-size:.55em; }
 .footer-meta { display:flex; justify-content:space-between; align-items:end; color:var(--muted); font-size:12px; }.footer-meta p { margin:0; }
 .case-hero { padding:90px 0 80px; }.back-link { display:inline-block; font-size:13px; margin-bottom:100px; border-bottom:1px solid; }
+.case-study-locked { overflow:hidden; }
+.case-gate[hidden] { display:none; }
+.case-gate { position:fixed; z-index:10000; inset:0; display:grid; place-items:center; padding:24px; background:var(--ink); color:var(--paper); }
+.case-gate-card { width:min(650px,100%); border-top:6px solid #f2d21b; padding-top:38px; }
+.case-gate-card h1 { margin:24px 0 18px; font-size:clamp(48px,7vw,82px); line-height:.9; font-weight:500; letter-spacing:-.055em; }
+.case-gate-card > p:not(.eyebrow) { margin:0 0 45px; color:#b7b7ae; font-size:19px; }
+.case-gate-card form { margin-bottom:42px; }
+.case-gate-card label { display:block; margin-bottom:9px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; }
+.case-gate-field { display:grid; grid-template-columns:1fr auto; gap:10px; }
+.case-gate-field input,.case-gate-field button { min-height:54px; border:1px solid #77776f; border-radius:0; font:500 16px var(--sans); }
+.case-gate-field input { min-width:0; padding:12px 15px; background:#292925; color:var(--paper); }
+.case-gate-field input:focus { outline:2px solid #00b8d4; outline-offset:2px; }
+.case-gate-field button { padding:12px 22px; border-color:#f2d21b; background:#f2d21b; color:var(--ink); cursor:pointer; }
+.case-gate-error { min-height:24px; margin:10px 0 0!important; color:#ff73b7!important; font-size:14px!important; }
+.case-gate-card > a { font-size:13px; border-bottom:1px solid; }
 .case-hero h1 { margin:20px 0 28px; font-size:clamp(70px,10vw,150px); line-height:.86; letter-spacing:-.06em; font-weight:500; }
 .case-summary { font-size:clamp(24px,3vw,42px); line-height:1.2; max-width:900px; }
 .case-meta { display:grid; grid-template-columns:1fr 1fr 2fr; gap:30px; margin-top:90px; border-top:1px solid var(--line); padding-top:15px; }.case-meta p { margin:0; }.case-meta p > span:first-child { display:block; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:7px; }.case-meta p > span:last-child { display:block; }
@@ -217,6 +232,7 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .evidence-note .eyebrow { margin-bottom:14px; }
 .evidence-note p:last-child { max-width:780px; margin:0; color:var(--muted); font-size:16px; line-height:1.55; }
 @media (max-width:760px) {
+  .case-gate-field { grid-template-columns:1fr; }
   .wrap, .case-body { width:calc(100% - 36px); }.site-header { height:80px; }.site-header nav { gap:17px; }.site-header nav a:nth-child(2),.site-header nav a:nth-child(3){display:none}
   .hero { min-height:calc(100svh - 80px); padding:6vh 0 35px; }.hero h1 { font-size:17vw; line-height:.86; }.hero-statement { grid-template-columns:1fr; column-gap:0; }.hero-statement > span:nth-child(1),.hero-statement > span:nth-child(2),.hero-statement > span:nth-child(3) { grid-column:1; }.hero-bottom { grid-template-columns:1fr; gap:34px; }.hero-bottom > p,.hero-proof,.hero-bottom .down-link { grid-column:1; }.hero-bottom > p { font-size:18px; }.hero-proof { order:2; grid-template-columns:1fr 1fr; gap:22px 14px; }.hero-proof p:nth-child(3) { grid-column:1 / -1; }.hero-proof p:nth-child(3) strong { min-height:auto; }.hero-proof span { max-width:140px; font-size:11px; }.hero-bottom .down-link { display:inline-block; width:max-content; justify-self:start; order:3; margin-top:12px; }
   .section-pad,.dark-section { padding-block:90px; }.section-heading { margin-bottom:48px; }.projects-grid { grid-template-columns:1fr; gap:75px; }.project-card.featured { grid-column:auto; }.featured .project-art,.project-art { aspect-ratio:4/3; }.art-title { font-size:14vw; }.project-info { grid-template-columns:30px 1fr; }.project-info h3 { font-size:21px; }

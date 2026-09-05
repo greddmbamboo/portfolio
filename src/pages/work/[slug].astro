@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyGate from '../../components/CaseStudyGate.astro';
 import { publishedProjects } from '../../data/projects';
 import { copy } from '../../data/copy';
 
@@ -12,6 +13,7 @@ const currentIndex = publishedProjects.findIndex(item => item.slug === project.s
 const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.length];
 ---
 <BaseLayout title={`${project.title} — Gaige Redd`} description={project.summary}>
+  <CaseStudyGate />
   <article class:list={['case-study', isBamboo && 'case-study-bamboo']}>
     <header class="case-hero wrap">
       <a class="back-link" href="/#work" data-edit={`projects.${project.slug}.backLabel`}>{copy(`projects.${project.slug}.backLabel`, '← Selected work')}</a>
