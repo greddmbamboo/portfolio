@@ -2,19 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
+import { copy } from '../data/copy';
 ---
 <BaseLayout>
   <section class="hero wrap">
-    <p class="availability"><span></span> Open to the right next chapter</p>
-    <h1>I shape products<br />people <em>want</em> to use<span>.</span></h1>
+    <h1 class="hero-statement">
+      <span data-edit="home.headline.open">{copy('home.headline.open', 'I turn')}</span>
+      <span class="complexity-word" data-text={copy('home.headline.complexity', 'complexity')} data-edit="home.headline.complexity">{copy('home.headline.complexity', 'complexity')}</span>
+      <span class="clarity-line"><span data-edit="home.headline.close">{copy('home.headline.close', 'into')}</span> <em data-edit="home.headline.clarity">{copy('home.headline.clarity', 'clarity')}</em><b aria-hidden="true">.</b></span>
+    </h1>
     <div class="hero-bottom">
-      <p>I'm Gaige — a product design leader who connects customer insight, business strategy, and high-performing teams.</p>
+      <p data-edit="home.intro">{copy('home.intro', 'Product design leader connecting customer insight, business strategy, and teams that know how to move.')}</p>
+      <div class="hero-proof" aria-label="Experience and areas of focus">
+        <p><strong data-edit="home.proof.1.value">{copy('home.proof.1.value', '13+')}</strong><span data-edit="home.proof.1.label">{copy('home.proof.1.label', 'years designing products')}</span></p>
+        <p><strong data-edit="home.proof.2.value">{copy('home.proof.2.value', '4+')}</strong><span data-edit="home.proof.2.label">{copy('home.proof.2.label', 'years leading teams')}</span></p>
+        <p><strong data-edit="home.proof.3.value">{copy('home.proof.3.value', 'SaaS · AI · Commerce')}</strong><span data-edit="home.proof.3.label">{copy('home.proof.3.label', 'areas of focus')}</span></p>
+      </div>
       <a href="#work" class="down-link">Selected work <span aria-hidden="true">↓</span></a>
     </div>
   </section>
 
   <section id="work" class="work wrap section-pad">
-    <div class="section-heading"><p class="eyebrow">Selected work</p><p class="section-count">01—04</p></div>
+    <div class="section-heading"><p class="eyebrow">Selected work</p><p class="section-count">01—03</p></div>
     <div class="projects-grid">
       {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
     </div>
@@ -23,11 +32,11 @@ import { projects } from '../data/projects';
   <section id="leadership" class="leadership dark-section">
     <div class="wrap">
       <div class="section-heading"><p class="eyebrow">How I lead</p><p class="section-count">Beyond the pixels</p></div>
-      <h2>Design is a team sport.<br /><em>Clarity</em> is the advantage.</h2>
+      <h2 data-edit="leadership.headline">{copy('leadership.headline', 'Teams will not thrive unless trust and mutual respect underpin the work.')}</h2>
       <div class="principles">
-        <article><span>01</span><h3>Make the strategy tangible</h3><p>I turn ambition into a shared picture of the customer, the opportunity, and what we're choosing to do next.</p></article>
-        <article><span>02</span><h3>Build systems, not dependencies</h3><p>I create the conditions for teams to make sound decisions without waiting for permission or perfect information.</p></article>
-        <article><span>03</span><h3>Raise quality with care</h3><p>Clear standards, honest critique, and thoughtful coaching help talented people do the strongest work of their careers.</p></article>
+        <article><span>01</span><h3 data-edit="leadership.1.title">{copy('leadership.1.title', 'I’m not always right')}</h3><p data-edit="leadership.1.body">{copy('leadership.1.body', 'Disagreement is an opportunity to listen, test our assumptions against customer evidence, and reach a stronger answer together.')}</p></article>
+        <article><span>02</span><h3 data-edit="leadership.2.title">{copy('leadership.2.title', 'Communication')}</h3><p data-edit="leadership.2.body">{copy('leadership.2.body', 'Clear, direct communication keeps cross-functional teams working toward the same goal—and helps me understand what each person needs to grow.')}</p></article>
+        <article><span>03</span><h3 data-edit="leadership.3.title">{copy('leadership.3.title', 'I trust my team')}</h3><p data-edit="leadership.3.body">{copy('leadership.3.body', 'I give capable people clear direction, real ownership, and room to do their best work without micromanagement.')}</p></article>
       </div>
     </div>
   </section>
@@ -35,14 +44,14 @@ import { projects } from '../data/projects';
   <section id="about" class="about wrap section-pad">
     <div class="section-heading"><p class="eyebrow">About</p><p class="section-count">The short version</p></div>
     <div class="about-grid">
-      <div class="portrait-placeholder" role="img" aria-label="Portrait of Gaige Redd — image coming soon"><span>PORTRAIT<br />PLACEHOLDER</span></div>
+      <figure class="portrait"><img src="/assets/about/gaige-redd.png" alt="Portrait of Gaige Redd" loading="lazy" /></figure>
       <div class="about-copy">
-        <h2>Curious by nature.<br />Practical by choice.</h2>
-        <p class="large-copy">I help organizations find the signal in the noise — then build the teams and products to act on it.</p>
-        <p>This is placeholder copy for Gaige's background, leadership journey, and point of view. Replace it with a concise story that connects the work, the person, and what comes next.</p>
+        <h2 data-edit="about.headline">{copy('about.headline', 'Curious by nature. Practical by choice.')}</h2>
+        <p class="large-copy" data-edit="about.lede">{copy('about.lede', 'I’m a product designer with more than 13 years of experience, including over four years leading high-performing design teams.')}</p>
+        <p data-edit="about.body">{copy('about.body', 'My approach is pragmatic: understand the human problem, connect it to a meaningful business outcome, and give teams enough clarity to make strong decisions. Away from work, I’m usually spending time with my family and dogs, taking photos, or making and repairing things.')}</p>
         <div class="text-links">
-          <a href="mailto:hello@gaigeredd.com">Get in touch ↗</a>
-          <span class="disabled-link" aria-label="Resume coming soon">Résumé — coming soon</span>
+          <a href="mailto:gaige@gaigeredd.com">Get in touch ↗</a>
+          <a href="/Gaige-Redd-Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
         </div>
       </div>
     </div>

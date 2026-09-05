@@ -1,0 +1,65 @@
+<div class="copy-editor" data-copy-editor>
+  <button type="button" aria-pressed="false">Edit copy</button>
+  <p aria-live="polite">Click text to edit. Changes save when you click away.</p>
+</div>
+
+<script>
+  const editor = document.querySelector<HTMLElement>('[data-copy-editor]');
+  const button = editor?.querySelector<HTMLButtonElement>('button');
+  const status = editor?.querySelector<HTMLParagraphElement>('p');
+  let active = false;
+
+  function setMode(next: boolean) {
+    active = next;
+    button?.setAttribute('aria-pressed', String(active));
+    if (button) button.textContent = active ? 'Finish editing' : 'Edit copy';
+    document.documentElement.classList.toggle('copy-editing', active);
+    document.querySelectorAll<HTMLElement>('[data-edit]').forEach(element => {
+      element.contentEditable = active ? 'plaintext-only' : 'false';
+      element.spellcheck = active;
+    });
+  }
+
+  async function save(element: HTMLElement) {
+    const key = element.dataset.edit;
+    const value = element.innerText.trim();
+    if (!key || value === element.dataset.savedValue) return;
+    if (status) status.textContent = 'Saving…';
+    const response = await fetch('/__copy-editor/save', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ key, value })
+    });
+    if (!response.ok) {
+      if (status) status.textContent = 'Could not save that change.';
+      return;
+    }
+    element.dataset.savedValue = value;
+    if (status) status.textContent = 'Saved to the project.';
+  }
+
+  button?.addEventListener('click', () => setMode(!active));
+  document.querySelectorAll<HTMLElement>('[data-edit]').forEach(element => {
+    element.dataset.savedValue = element.innerText.trim();
+    element.addEventListener('input', () => {
+      if (element.classList.contains('complexity-word')) element.dataset.text = element.innerText;
+    });
+    element.addEventListener('blur', () => save(element));
+    element.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        element.blur();
+      }
+    });
+  });
+</script>
+
+<style>
+  .copy-editor { position:fixed; z-index:90; right:20px; bottom:20px; display:flex; align-items:center; gap:12px; padding:8px; background:#171713; color:#f2f1ea; box-shadow:0 8px 30px rgba(0,0,0,.24); }
+  .copy-editor button { appearance:none; border:0; background:#f2f1ea; color:#171713; padding:9px 13px; font:600 12px/1 inherit; cursor:pointer; }
+  .copy-editor button:hover,.copy-editor button[aria-pressed="true"] { background:#d9ff5f; }
+  .copy-editor p { display:none; }
+  :global(.copy-editing [data-edit]) { cursor:text; outline:1px dashed rgba(92,97,255,.55); outline-offset:4px; }
+  :global(.copy-editing [data-edit]:hover) { outline:2px solid #5c61ff; }
+  :global(.copy-editing [data-edit]:focus) { outline:3px solid #5c61ff; background:rgba(217,255,95,.14); }
+</style>

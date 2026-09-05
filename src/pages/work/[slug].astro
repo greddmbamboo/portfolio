@@ -1,30 +1,134 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { projects } from '../../data/projects';
+import { publishedProjects } from '../../data/projects';
+import { copy } from '../../data/copy';
 
 export function getStaticPaths() {
-  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+  return publishedProjects.map(project => ({ params: { slug: project.slug }, props: { project } }));
 }
 const { project } = Astro.props;
+const isBamboo = project.slug === 'recognition-and-rewards';
+const currentIndex = publishedProjects.findIndex(item => item.slug === project.slug);
+const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.length];
 ---
 <BaseLayout title={`${project.title} — Gaige Redd`} description={project.summary}>
-  <article class="case-study">
+  <article class:list={['case-study', isBamboo && 'case-study-bamboo']}>
     <header class="case-hero wrap">
-      <a class="back-link" href="/#work">← All work</a>
-      <p class="eyebrow">Case study {project.number}</p>
-      <h1>{project.title}</h1>
-      <p class="case-summary">{project.summary}</p>
-      <div class="case-meta"><p><span>Year</span>{project.year}</p><p><span>Organization</span>{project.client}</p><p><span>Focus</span>{project.tags.join(' · ')}</p></div>
+      <a class="back-link" href="/#work" data-edit={`projects.${project.slug}.backLabel`}>{copy(`projects.${project.slug}.backLabel`, '← Selected work')}</a>
+      <p class="eyebrow" data-edit={`projects.${project.slug}.caseLabel`}>{copy(`projects.${project.slug}.caseLabel`, `${project.company} / Case study ${project.number}`)}</p>
+      <h1 data-edit={`projects.${project.slug}.title`}>{copy(`projects.${project.slug}.title`, project.title)}</h1>
+      <p class="case-summary" data-edit={`projects.${project.slug}.headline`}>{copy(`projects.${project.slug}.headline`, project.headline)}</p>
+      <div class="case-meta">
+        <p><span data-edit={`projects.${project.slug}.meta.organizationLabel`}>{copy(`projects.${project.slug}.meta.organizationLabel`, 'Organization')}</span><span data-edit={`projects.${project.slug}.meta.organization`}>{copy(`projects.${project.slug}.meta.organization`, project.company)}</span></p>
+        <p><span data-edit={`projects.${project.slug}.meta.roleLabel`}>{copy(`projects.${project.slug}.meta.roleLabel`, 'Role')}</span><span data-edit={`projects.${project.slug}.meta.role`}>{copy(`projects.${project.slug}.meta.role`, project.caseRole)}</span></p>
+        <p><span data-edit={`projects.${project.slug}.meta.focusLabel`}>{copy(`projects.${project.slug}.meta.focusLabel`, 'Focus')}</span><span data-edit={`projects.${project.slug}.meta.focus`}>{copy(`projects.${project.slug}.meta.focus`, project.tags.join(' · '))}</span></p>
+      </div>
     </header>
-    <div class:list={['case-cover', project.accent]} role="img" aria-label={`${project.title} project image placeholder`}><span>PROJECT IMAGE PLACEHOLDER</span><strong>{project.number}</strong></div>
+
+    <figure class="case-cover">
+      <img src={project.cover} alt={project.coverAlt} />
+    </figure>
+
     <div class="case-body wrap">
-      <section><p class="eyebrow">01 / Problem</p><h2>The challenge worth solving.</h2><p class="body-lede">{project.problem}</p></section>
-      <section class="split-section"><div><p class="eyebrow">02 / Context</p><h2>Why this, why now.</h2></div><p>{project.context}</p></section>
-      <section class="split-section"><div><p class="eyebrow">03 / My role</p><h2>Where I led.</h2></div><p>{project.role}</p></section>
-      <section><p class="eyebrow">04 / Approach</p><h2>From ambiguity to action.</h2><ol class="case-list">{project.approach.map((item, i) => <li><span>0{i + 1}</span><p>{item}</p></li>)}</ol></section>
-      <section class="decision-section"><p class="eyebrow">05 / Key decisions</p><h2>The choices that shaped the work.</h2><ul>{project.decisions.map(item => <li>{item}</li>)}</ul></section>
-      <section class="outcome"><p class="eyebrow">06 / Outcome</p><h2>What changed.</h2><p class="body-lede">{project.outcome}</p></section>
-      <nav class="case-next" aria-label="Case study navigation"><a href="/#work">← Back to selected work</a><a href="mailto:hello@gaigeredd.com">Discuss this work ↗</a></nav>
+      <section class="case-opening">
+        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.challenge`}>{copy(`projects.${project.slug}.labels.challenge`, 'The challenge')}</p>
+        <p class="body-lede" data-edit={`projects.${project.slug}.problem`}>{copy(`projects.${project.slug}.problem`, project.problem)}</p>
+      </section>
+
+      <section class="split-section">
+        <div><p class="eyebrow" data-edit={`projects.${project.slug}.labels.context`}>{copy(`projects.${project.slug}.labels.context`, 'Context')}</p><h2 data-edit={`projects.${project.slug}.headings.context`}>{copy(`projects.${project.slug}.headings.context`, 'Why this problem mattered.')}</h2></div>
+        <p data-edit={`projects.${project.slug}.context`}>{copy(`projects.${project.slug}.context`, project.context)}</p>
+      </section>
+
+      <section class="split-section">
+        <div><p class="eyebrow" data-edit={`projects.${project.slug}.labels.role`}>{copy(`projects.${project.slug}.labels.role`, 'My role')}</p><h2 data-edit={`projects.${project.slug}.headings.role`}>{copy(`projects.${project.slug}.headings.role`, 'Where I led.')}</h2></div>
+        <p data-edit={`projects.${project.slug}.role`}>{copy(`projects.${project.slug}.role`, project.role)}</p>
+      </section>
+
+      {project.adminChapter && (
+        <section class="chapter-intro chapter-admin">
+          <p class="eyebrow" data-edit={`projects.${project.slug}.adminChapter.eyebrow`}>{copy(`projects.${project.slug}.adminChapter.eyebrow`, project.adminChapter.eyebrow)}</p>
+          <h2 data-edit={`projects.${project.slug}.adminChapter.title`}>{copy(`projects.${project.slug}.adminChapter.title`, project.adminChapter.title)}</h2>
+          <p data-edit={`projects.${project.slug}.adminChapter.body`}>{copy(`projects.${project.slug}.adminChapter.body`, project.adminChapter.body)}</p>
+        </section>
+      )}
+
+      {project.gallery?.[0] && (
+        <figure class="case-media case-media-wide">
+          <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading={isBamboo ? 'eager' : 'lazy'} />
+          {project.gallery[0].caption && <figcaption data-edit={`projects.${project.slug}.gallery.0.caption`}>{copy(`projects.${project.slug}.gallery.0.caption`, project.gallery[0].caption)}</figcaption>}
+        </figure>
+      )}
+
+      <section>
+        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.approach`}>{copy(`projects.${project.slug}.labels.approach`, 'The approach')}</p>
+        <h2 data-edit={`projects.${project.slug}.headings.approach`}>{copy(`projects.${project.slug}.headings.approach`, 'Turn evidence into direction.')}</h2>
+        <ol class="case-list">
+          {project.approach?.map((item, i) => <li><span data-edit={`projects.${project.slug}.approach.${i}.number`}>{copy(`projects.${project.slug}.approach.${i}.number`, `0${i + 1}`)}</span><div><h3 data-edit={`projects.${project.slug}.approach.${i}.title`}>{copy(`projects.${project.slug}.approach.${i}.title`, item.title)}</h3><p data-edit={`projects.${project.slug}.approach.${i}.body`}>{copy(`projects.${project.slug}.approach.${i}.body`, item.body)}</p></div></li>)}
+        </ol>
+      </section>
+
+      {project.gallery && project.gallery.length > 2 && (
+        <div class="media-pair">
+          {project.gallery.slice(1, 3).map((item, i) => <figure class="case-media"><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 1}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 1}.caption`, item.caption)}</figcaption>}</figure>)}
+        </div>
+      )}
+
+      {!isBamboo && <section class="decision-section">
+        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.decisions`}>{copy(`projects.${project.slug}.labels.decisions`, 'Key decisions')}</p>
+        <h2 data-edit={`projects.${project.slug}.headings.decisions`}>{copy(`projects.${project.slug}.headings.decisions`, 'The choices that shaped the work.')}</h2>
+        <div class="decision-grid">
+          {project.decisions?.map((item, i) => <article><span data-edit={`projects.${project.slug}.decisions.${i}.number`}>{copy(`projects.${project.slug}.decisions.${i}.number`, `0${i + 1}`)}</span><h3 data-edit={`projects.${project.slug}.decisions.${i}.title`}>{copy(`projects.${project.slug}.decisions.${i}.title`, item.title)}</h3><p data-edit={`projects.${project.slug}.decisions.${i}.body`}>{copy(`projects.${project.slug}.decisions.${i}.body`, item.body)}</p></article>)}
+        </div>
+      </section>}
+
+      {project.employeeChapter && (
+        <section class="chapter-intro chapter-employee">
+          <p class="eyebrow" data-edit={`projects.${project.slug}.employeeChapter.eyebrow`}>{copy(`projects.${project.slug}.employeeChapter.eyebrow`, project.employeeChapter.eyebrow)}</p>
+          <h2 data-edit={`projects.${project.slug}.employeeChapter.title`}>{copy(`projects.${project.slug}.employeeChapter.title`, project.employeeChapter.title)}</h2>
+          <p data-edit={`projects.${project.slug}.employeeChapter.body`}>{copy(`projects.${project.slug}.employeeChapter.body`, project.employeeChapter.body)}</p>
+        </section>
+      )}
+
+      {project.gallery && project.gallery.length > 3 && (
+        <div class="case-gallery">
+          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide']}><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
+        </div>
+      )}
+
+      {project.highlight && (
+        <section class="case-highlight">
+          <div class="highlight-copy">
+            <p class="eyebrow" data-edit={`projects.${project.slug}.highlight.eyebrow`}>{copy(`projects.${project.slug}.highlight.eyebrow`, project.highlight.eyebrow)}</p>
+            <h2 data-edit={`projects.${project.slug}.highlight.title`}>{copy(`projects.${project.slug}.highlight.title`, project.highlight.title)}</h2>
+            <p data-edit={`projects.${project.slug}.highlight.body`}>{copy(`projects.${project.slug}.highlight.body`, project.highlight.body)}</p>
+          </div>
+          <p class="highlight-stat">
+            <strong data-edit={`projects.${project.slug}.highlight.value`}>{copy(`projects.${project.slug}.highlight.value`, project.highlight.value)}</strong>
+            <span data-edit={`projects.${project.slug}.highlight.label`}>{copy(`projects.${project.slug}.highlight.label`, project.highlight.label)}</span>
+          </p>
+        </section>
+      )}
+
+      <section class:list={['outcome', isBamboo && 'outcome-compact']}>
+        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.outcome`}>{copy(`projects.${project.slug}.labels.outcome`, isBamboo ? 'Early outcome' : 'Outcome')}</p>
+        <h2 data-edit={`projects.${project.slug}.headings.outcome`}>{copy(`projects.${project.slug}.headings.outcome`, isBamboo ? 'What happened next.' : 'What changed.')}</h2>
+        {!isBamboo && <div class="outcome-stats">
+          {project.outcomes?.map((item, i) => <p><strong data-edit={`projects.${project.slug}.outcomes.${i}.value`}>{copy(`projects.${project.slug}.outcomes.${i}.value`, item.value)}</strong><span data-edit={`projects.${project.slug}.outcomes.${i}.label`}>{copy(`projects.${project.slug}.outcomes.${i}.label`, item.label)}</span></p>)}
+        </div>}
+        <p class="body-lede" data-edit={`projects.${project.slug}.outcome`}>{copy(`projects.${project.slug}.outcome`, project.outcomeCopy)}</p>
+        {project.evidenceNote && (
+          <aside class="evidence-note">
+            <p class="eyebrow" data-edit={`projects.${project.slug}.labels.evidence`}>{copy(`projects.${project.slug}.labels.evidence`, 'Measurement context')}</p>
+            <p data-edit={`projects.${project.slug}.evidenceNote`}>{copy(`projects.${project.slug}.evidenceNote`, project.evidenceNote)}</p>
+          </aside>
+        )}
+      </section>
+
+      <nav class="case-next" aria-label="Case study navigation">
+        <a href="/#work" data-edit={`projects.${project.slug}.navigation.allWork`}>{copy(`projects.${project.slug}.navigation.allWork`, '← All selected work')}</a>
+        <a href={`/work/${nextProject.slug}/`} data-edit={`projects.${project.slug}.navigation.next`}>{copy(`projects.${project.slug}.navigation.next`, `Next: ${nextProject.company} ↗`)}</a>
+      </nav>
     </div>
   </article>
 </BaseLayout>
