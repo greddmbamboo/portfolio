@@ -23,7 +23,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
       <div class="case-meta">
         <p><span data-edit={`projects.${project.slug}.meta.organizationLabel`}>{copy(`projects.${project.slug}.meta.organizationLabel`, 'Organization')}</span><span data-edit={`projects.${project.slug}.meta.organization`}>{copy(`projects.${project.slug}.meta.organization`, project.company)}</span></p>
         <p><span data-edit={`projects.${project.slug}.meta.roleLabel`}>{copy(`projects.${project.slug}.meta.roleLabel`, 'Role')}</span><span data-edit={`projects.${project.slug}.meta.role`}>{copy(`projects.${project.slug}.meta.role`, project.caseRole)}</span></p>
-        <p><span data-edit={`projects.${project.slug}.meta.focusLabel`}>{copy(`projects.${project.slug}.meta.focusLabel`, 'Focus')}</span><span data-edit={`projects.${project.slug}.meta.focus`}>{copy(`projects.${project.slug}.meta.focus`, project.tags.join(' · '))}</span></p>
+        <p><span data-edit={`projects.${project.slug}.meta.focusLabel`}>{copy(`projects.${project.slug}.meta.focusLabel`, 'Focus')}</span><span data-edit={`projects.${project.slug}.meta.focus`}>{copy(`projects.${project.slug}.meta.focus`, project.tags.join(' / '))}</span></p>
       </div>
     </header>
 
@@ -56,7 +56,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
       )}
 
       {project.gallery?.[0] && (
-        <figure class="case-media case-media-wide">
+        <figure class:list={['case-media', 'case-media-wide', isBamboo && 'case-media-settings']}>
           <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading={isBamboo ? 'eager' : 'lazy'} />
           {project.gallery[0].caption && <figcaption data-edit={`projects.${project.slug}.gallery.0.caption`}>{copy(`projects.${project.slug}.gallery.0.caption`, project.gallery[0].caption)}</figcaption>}
         </figure>
@@ -94,38 +94,40 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
 
       {project.gallery && project.gallery.length > 3 && (
         <div class="case-gallery">
-          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide']}><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
+          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide', item.src.endsWith('/feed.png') && 'case-media-natural']}><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
         </div>
       )}
 
       {project.highlight && (
-        <section class="case-highlight">
-          <div class="highlight-copy">
-            <p class="eyebrow" data-edit={`projects.${project.slug}.highlight.eyebrow`}>{copy(`projects.${project.slug}.highlight.eyebrow`, project.highlight.eyebrow)}</p>
-            <h2 data-edit={`projects.${project.slug}.highlight.title`}>{copy(`projects.${project.slug}.highlight.title`, project.highlight.title)}</h2>
-            <p data-edit={`projects.${project.slug}.highlight.body`}>{copy(`projects.${project.slug}.highlight.body`, project.highlight.body)}</p>
-          </div>
-          <p class="highlight-stat">
-            <strong data-edit={`projects.${project.slug}.highlight.value`}>{copy(`projects.${project.slug}.highlight.value`, project.highlight.value)}</strong>
-            <span data-edit={`projects.${project.slug}.highlight.label`}>{copy(`projects.${project.slug}.highlight.label`, project.highlight.label)}</span>
-          </p>
-        </section>
+        <>
+          <section class="case-highlight">
+            <div class="highlight-copy">
+              <p class="eyebrow" data-edit={`projects.${project.slug}.highlight.eyebrow`}>{copy(`projects.${project.slug}.highlight.eyebrow`, project.highlight.eyebrow)}</p>
+              <h2 data-edit={`projects.${project.slug}.highlight.title`}>{copy(`projects.${project.slug}.highlight.title`, project.highlight.title)}</h2>
+              <p data-edit={`projects.${project.slug}.highlight.body`}>{copy(`projects.${project.slug}.highlight.body`, project.highlight.body)}</p>
+            </div>
+            <p class="highlight-stat">
+              <strong data-edit={`projects.${project.slug}.highlight.value`}>{copy(`projects.${project.slug}.highlight.value`, project.highlight.value)}</strong>
+              <span data-edit={`projects.${project.slug}.highlight.label`}>{copy(`projects.${project.slug}.highlight.label`, project.highlight.label)}</span>
+            </p>
+          </section>
+          {isBamboo && project.evidenceNote && (
+            <p class="highlight-disclaimer">
+              <span>Measurement context:</span>{' '}
+              <span data-edit={`projects.${project.slug}.evidenceNote`}>{copy(`projects.${project.slug}.evidenceNote`, project.evidenceNote)}</span>
+            </p>
+          )}
+        </>
       )}
 
-      <section class:list={['outcome', isBamboo && 'outcome-compact']}>
-        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.outcome`}>{copy(`projects.${project.slug}.labels.outcome`, isBamboo ? 'Early outcome' : 'Outcome')}</p>
-        <h2 data-edit={`projects.${project.slug}.headings.outcome`}>{copy(`projects.${project.slug}.headings.outcome`, isBamboo ? 'What happened next.' : 'What changed.')}</h2>
-        {!isBamboo && <div class="outcome-stats">
+      {!isBamboo && <section class="outcome">
+        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.outcome`}>{copy(`projects.${project.slug}.labels.outcome`, 'Outcome')}</p>
+        <h2 data-edit={`projects.${project.slug}.headings.outcome`}>{copy(`projects.${project.slug}.headings.outcome`, 'What changed.')}</h2>
+        <div class="outcome-stats">
           {project.outcomes?.map((item, i) => <p><strong data-edit={`projects.${project.slug}.outcomes.${i}.value`}>{copy(`projects.${project.slug}.outcomes.${i}.value`, item.value)}</strong><span data-edit={`projects.${project.slug}.outcomes.${i}.label`}>{copy(`projects.${project.slug}.outcomes.${i}.label`, item.label)}</span></p>)}
-        </div>}
+        </div>
         <p class="body-lede" data-edit={`projects.${project.slug}.outcome`}>{copy(`projects.${project.slug}.outcome`, project.outcomeCopy)}</p>
-        {project.evidenceNote && (
-          <aside class="evidence-note">
-            <p class="eyebrow" data-edit={`projects.${project.slug}.labels.evidence`}>{copy(`projects.${project.slug}.labels.evidence`, 'Measurement context')}</p>
-            <p data-edit={`projects.${project.slug}.evidenceNote`}>{copy(`projects.${project.slug}.evidenceNote`, project.evidenceNote)}</p>
-          </aside>
-        )}
-      </section>
+      </section>}
 
       <nav class="case-next" aria-label="Case study navigation">
         <a href="/#work" data-edit={`projects.${project.slug}.navigation.allWork`}>{copy(`projects.${project.slug}.navigation.allWork`, '← All selected work')}</a>

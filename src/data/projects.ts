@@ -17,7 +17,7 @@ export const projects: Project[] = [
     slug: 'recognition-and-rewards', number: '01', title: 'Recognition & Rewards',
     company: 'BambooHR',
     summary: 'Turning a complex HR program into a clear setup for admins and a lightweight ritual for employees.',
-    tags: ['0→1 product', 'Interaction design', 'AI experience'], year: '2026', caseRole: 'Product Designer',
+    tags: ['0→1 product', 'Interaction design', 'Proactive AI'], year: '2026', caseRole: 'Product Designer',
     cover: '/assets/work/bamboohr/cover-illustrated.png',
     coverAlt: 'Illustrated BambooHR Recognition feed displayed on a desktop monitor',
     headline: 'Powerful enough for admins. Simple enough for everyone else.',
@@ -25,12 +25,12 @@ export const projects: Project[] = [
     context: 'Recognition was becoming table stakes in HR software. Matching the category was not enough; the product also had to make consequential setup decisions understandable and give employees a reason to participate once the program was live.',
     role: 'I led product design across both sides of the experience: the Admin information architecture and point-allocation model, plus the employee composer and AI-suggestion patterns. I partnered with product, engineering, research, and customers from discovery through launch and post-launch iteration.',
     adminChapter: {
-      eyebrow: 'Chapter one · The Admin experience',
+      eyebrow: 'Chapter one / The Admin experience',
       title: 'Making a complex system understandable.',
       body: 'The Admin experience could not avoid complexity, but it could make that complexity navigable. I organized the system around clear decisions, progressive disclosure, and visible consequences so an Admin could understand what would happen before committing a change.'
     },
     employeeChapter: {
-      eyebrow: 'Chapter two · The employee experience',
+      eyebrow: 'Chapter two / The employee experience',
       title: 'Removing the blank-page problem.',
       body: 'Employees needed a lightweight social action, not another HR task. The core composer kept recipients, message, values, points, and privacy together. AI suggestions went further by identifying a relevant moment and giving the employee an editable starting point.'
     },
@@ -45,9 +45,9 @@ export const projects: Project[] = [
       { title: 'Keep flexibility from becoming noise', body: 'Groups, managers, and individuals share a consistent allocation model, while conditional controls reveal details such as per-direct-report and flat-rate calculations only when they become relevant.' }
     ],
     highlight: {
-      eyebrow: 'The employee experience',
+      eyebrow: 'Early outcome',
       title: 'A timely suggestion made recognition easier to start.',
-      body: 'Suggestions surfaced a person, reason, editable message, company value, and point amount. Employees could edit, send, or dismiss the suggestion, preserving authorship instead of automating appreciation invisibly.',
+      body: 'Suggestions surfaced a person, reason, editable message, company value, and point amount. Employees could edit, send, or dismiss the suggestion, preserving authorship instead of automating appreciation invisibly. The 56% increase supported our hypothesis that reducing the friction of beginning a recognition post would increase engagement.',
       value: '56%',
       label: 'increase in engagement after AI-suggested recognition was introduced'
     },

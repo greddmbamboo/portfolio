@@ -7,11 +7,13 @@
   "projects.ai-order-cloud.headline": "Designing AI around the work—not the novelty.",
   "projects.product-page-architecture.role": "As the sole designer on this initiative, I helped diagnose the experience, synthesized behavioral and market evidence, proposed the new information architecture, and carried the direction through design exploration, prototyping, usability testing, and an A/B test.",
   "projects.recognition-and-rewards.headline": "Powerful features for admins. Effortless engagement for everyone else.",
-  "projects.recognition-and-rewards.employeeChapter.eyebrow": "PART TWO · THE EMPLOYEE EXPERIENCE",
-  "projects.recognition-and-rewards.adminChapter.eyebrow": "PART ONE · THE ADMIN EXPERIENCE",
+  "projects.recognition-and-rewards.employeeChapter.eyebrow": "PART TWO / THE EMPLOYEE EXPERIENCE",
+  "projects.recognition-and-rewards.adminChapter.eyebrow": "PART ONE / THE ADMIN EXPERIENCE",
   "projects.recognition-and-rewards.headings.context": "Why it mattered.",
   "projects.recognition-and-rewards.context": "Recognition was one of our most-requested features and a natural extension of BambooHR’s “better together” story. As the first HRIS to offer it natively, our goal went beyond competitive parity: create an exceptional experience for admins and employees.",
   "projects.recognition-and-rewards.adminChapter.body": "The Admin experience could not avoid complexity, but it could make that complexity navigable. I organized the system around clear decisions, progressive disclosure, and visible affordances so admins could understand what would happen before committing a change.",
   "projects.recognition-and-rewards.problem": "Recognition & Rewards had to serve two very different jobs. Admins needed control over eligibility, points, rewards, and automation. Employees needed a fast, natural way to recognize someone. The challenge was to minimize complexity on the admin side and remove friction from the employee side.",
-  "about.body": "My approach is pragmatic: understand the human problem, connect it to a meaningful business outcome, and give teams enough clarity to make strong decisions. Away from work, I’m usually spending time with my family and dogs, taking photos, or building something."
+  "about.body": "My approach is pragmatic: understand the human problem, connect it to a meaningful business outcome, and give teams enough clarity to make strong decisions. Away from work, I’m usually spending time with my family and dogs, taking photos, or building something.",
+  "projects.recognition-and-rewards.outcome": "Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.",
+  "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction"
 }
