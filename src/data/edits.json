@@ -21,5 +21,8 @@
   "projects.product-page-architecture.draft.lessons.title": "Better questions provide better answers.",
   "projects.product-page-architecture.draft.launch.conclusion": "After roughly four weeks live, the results confirmed the hypothesis: customers didn't need fewer opportunities; they just needed them in the right order.",
   "projects.product-page-architecture.draft.research.body": "After a redesign by an external agency, upgrades and cross-sells had flattened. Funnel data showed the decline, but not the cause. I paired the quantitative date with user sessions and heat maps from Quantum Metric. The research revealed a clear pattern of hesitation and second guessing with each additional decision we put on the PDP.",
-  "projects.product-page-architecture.draft.research.title": "The numbers showed a decline. Research showed us why."
+  "projects.product-page-architecture.draft.research.title": "The numbers showed a decline. Research showed us why.",
+  "projects.product-page-architecture.draft.audit.title": "Our competitors repeated the same mistake.",
+  "projects.product-page-architecture.draft.audit.body": "We audited competitors in and out of market. Most in-category experiences stacked every cross-sell in the PDP, repeating the same overloaded pattern. Looking elsewhere surfaced stronger ways to sequence configuration and add-on decisions.",
+  "home.proof.1.value": "15+"
 }

@@ -71,11 +71,11 @@ const draftKey = `${key}.draft`;
       </section>
 
       <section class="case-section--no-rule">
-        <div class="case-intro case-section-intro">
+        <div class="case-split-section case-section-intro">
           <div><p class="eyebrow" data-edit={`${draftKey}.audit.eyebrow`}>{copy(`${draftKey}.audit.eyebrow`, '03 / The other guys')}</p><h2 data-edit={`${draftKey}.audit.title`}>{copy(`${draftKey}.audit.title`, 'The category repeated the same mistake.')}</h2></div>
           <p class="body-lede" data-edit={`${draftKey}.audit.body`}>{copy(`${draftKey}.audit.body`, 'We audited competitors in and beyond mattresses. Most in-category experiences stacked every cross-sell onto the PDP, repeating the same overloaded pattern. Looking elsewhere surfaced stronger ways to sequence configuration and add-on decisions.')}</p>
         </div>
-        <figure class="case-media case-media--unbounded">
+        <figure class="case-media case-media--unbounded case-media--medium">
           <img src="/assets/work/purple/audit.png" alt="Competitive audit of product configuration and cross-sell patterns" />
           <figcaption><strong data-edit={`${draftKey}.audit.captionLead`}>{copy(`${draftKey}.audit.captionLead`, 'Competitive and adjacent-market audit.')}</strong>{' '}<span data-edit={`${draftKey}.audit.captionBody`}>{copy(`${draftKey}.audit.captionBody`, 'The opportunity was not a more polished version of the category norm; it was a different sequence.')}</span></figcaption>
         </figure>
@@ -87,14 +87,13 @@ const draftKey = `${key}.draft`;
         <p data-edit={`${draftKey}.architecture.body`}>{copy(`${draftKey}.architecture.body`, 'I proposed a post-add-to-cart interstitial for promotions. The PDP would focus on the mattress and bed frame; bedding and pillow decisions would follow once the primary product was in the cart. We preserved the revenue opportunity while cutting the PDP decision load in half.')}</p>
       </section>
 
-      <figure class="case-media case-media-wide case-media-block case-media--unbounded case-media--paper">
+      <figure class="case-media case-media-wide case-media-block case-media--unbounded case-media--paper case-media--compact">
         <img src="/assets/work/purple/architecture.png" alt="Original Purple mattress PDP flow compared with a simplified flow using a post-add-to-cart interstitial" />
         <figcaption><strong data-edit={`${draftKey}.architecture.captionLead`}>{copy(`${draftKey}.architecture.captionLead`, 'Original and revised flows.')}</strong>{' '}<span data-edit={`${draftKey}.architecture.captionBody`}>{copy(`${draftKey}.architecture.captionBody`, 'Four promotional decisions moved into a focused interstitial after Add to Cart.')}</span></figcaption>
       </figure>
 
-      <section>
-        <p class="eyebrow" data-edit={`${draftKey}.exploration.eyebrow`}>{copy(`${draftKey}.exploration.eyebrow`, '05 / Interaction exploration')}</p>
-        <h2 data-edit={`${draftKey}.exploration.title`}>{copy(`${draftKey}.exploration.title`, 'Keep momentum without hiding the choice.')}</h2>
+      <section class="case-split-section">
+        <div><p class="eyebrow" data-edit={`${draftKey}.exploration.eyebrow`}>{copy(`${draftKey}.exploration.eyebrow`, '05 / Interaction exploration')}</p><h2 data-edit={`${draftKey}.exploration.title`}>{copy(`${draftKey}.exploration.title`, 'Keep momentum without hiding the choice.')}</h2></div>
         <p class="body-lede" data-edit={`${draftKey}.exploration.body`}>{copy(`${draftKey}.exploration.body`, 'I explored layouts, interactions, and transitions for the post-add-to-cart flow. Stakeholder reviews helped narrow the strongest direction before prototyping.')}</p>
       </section>
 
@@ -115,7 +114,7 @@ const draftKey = `${key}.draft`;
         </figure>
       </div>
 
-      <section class="case-intro">
+      <section class="case-split-section">
         <div><p class="eyebrow" data-edit={`${draftKey}.testing.eyebrow`}>{copy(`${draftKey}.testing.eyebrow`, '06 / Beat it up')}</p><h2 data-edit={`${draftKey}.testing.title`}>{copy(`${draftKey}.testing.title`, 'Prototype. Test. Refine.')}</h2></div>
         <p class="body-lede" data-edit={`${draftKey}.testing.body`}>{copy(`${draftKey}.testing.body`, 'I built clickable prototypes and ran unmoderated studies through UserTesting. The feedback exposed weak cues and moments of uncertainty, giving me a focused list to refine and test again.')}</p>
       </section>
