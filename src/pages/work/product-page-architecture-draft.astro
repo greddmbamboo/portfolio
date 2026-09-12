@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+import { copy } from '../../data/copy';
+
+if (import.meta.env.PROD) {
+  return Astro.redirect('/work/product-page-architecture/', 302);
+}
+
+const project = projects.find(item => item.slug === 'product-page-architecture')!;
+const key = `projects.${project.slug}`;
+const draftKey = `${key}.draft`;
+---
+
+<BaseLayout
+  title="Product Page Architecture — Working Draft — Gaige Redd"
+  description={project.summary}
+  noindex
+>
+  <article class="case-study case-study--narrative">
+    <header class="case-hero wrap">
+      <div class="case-draft-status">
+        <a class="back-link" href="/work/product-page-architecture/">← Current case study</a>
+        <span>Working draft / Unlisted</span>
+      </div>
+      <p class="eyebrow" data-edit={`${draftKey}.caseLabel`}>{copy(`${draftKey}.caseLabel`, copy(`${key}.caseLabel`, `${project.company} / Case study ${project.number}`))}</p>
+      <h1 data-edit={`${draftKey}.title`}>{copy(`${draftKey}.title`, copy(`${key}.title`, project.title))}</h1>
+      <p class="case-summary" data-edit={`${draftKey}.headline`}>{copy(`${draftKey}.headline`, copy(`${key}.headline`, project.headline))}</p>
+      <div class="case-meta">
+        <p><span data-edit={`${draftKey}.meta.organizationLabel`}>{copy(`${draftKey}.meta.organizationLabel`, 'Organization')}</span><span data-edit={`${draftKey}.meta.organization`}>{copy(`${draftKey}.meta.organization`, project.company)}</span></p>
+        <p><span data-edit={`${draftKey}.meta.roleLabel`}>{copy(`${draftKey}.meta.roleLabel`, 'Role')}</span><span data-edit={`${draftKey}.meta.role`}>{copy(`${draftKey}.meta.role`, project.caseRole)}</span></p>
+        <p><span data-edit={`${draftKey}.meta.focusLabel`}>{copy(`${draftKey}.meta.focusLabel`, 'Focus')}</span><span data-edit={`${draftKey}.meta.focus`}>{copy(`${draftKey}.meta.focus`, project.tags.join(' / '))}</span></p>
+      </div>
+    </header>
+
+    <figure class="case-cover">
+      <img src={project.cover} alt={project.coverAlt} />
+    </figure>
+
+    <div class="case-body wrap">
+      <section class="case-opening">
+        <p class="eyebrow" data-edit={`${draftKey}.labels.challenge`}>{copy(`${draftKey}.labels.challenge`, copy(`${key}.labels.challenge`, 'The challenge'))}</p>
+        <p class="body-lede" data-edit={`${draftKey}.problem`}>{copy(`${draftKey}.problem`, copy(`${key}.problem`, project.problem))}</p>
+      </section>
+
+      <section class="case-intro">
+        <div><p class="eyebrow" data-edit={`${draftKey}.labels.context`}>{copy(`${draftKey}.labels.context`, copy(`${key}.labels.context`, 'Context'))}</p><h2 data-edit={`${draftKey}.headings.context`}>{copy(`${draftKey}.headings.context`, copy(`${key}.headings.context`, 'Why this problem mattered.'))}</h2></div>
+        <p class="body-lede" data-edit={`${draftKey}.context`}>{copy(`${draftKey}.context`, copy(`${key}.context`, project.context))}</p>
+      </section>
+
+      <section class="case-intro">
+        <div><p class="eyebrow" data-edit={`${draftKey}.labels.role`}>{copy(`${draftKey}.labels.role`, copy(`${key}.labels.role`, 'My role'))}</p><h2 data-edit={`${draftKey}.headings.role`}>{copy(`${draftKey}.headings.role`, copy(`${key}.headings.role`, 'Where I led.'))}</h2></div>
+        <p class="body-lede" data-edit={`${draftKey}.role`}>{copy(`${draftKey}.role`, copy(`${key}.role`, project.role))}</p>
+      </section>
+
+      <section class="case-intro">
+        <p class="eyebrow" data-edit={`${draftKey}.research.eyebrow`}>{copy(`${draftKey}.research.eyebrow`, '01 / Following the breadcrumbs')}</p>
+        <h2 data-edit={`${draftKey}.research.title`}>{copy(`${draftKey}.research.title`, 'The numbers showed a decline. Sessions showed us why.')}</h2>
+        <p class="body-lede" data-edit={`${draftKey}.research.body`}>{copy(`${draftKey}.research.body`, 'After a year of PDP revisions, upgrades and cross-sells had flattened. Funnel data showed the decline, but not why it was happening. I paired the numbers with Quantum Metric heat maps and dozens of session recordings. Customers hesitated, doubled back, and lost momentum each time a new offer interrupted the mattress decision.')}</p>
+      </section>
+
+      <figure class="case-media case-media-block">
+        <img src="/assets/work/purple/research.png" alt="Quantum Metric session analysis shown alongside the Purple experiment dashboard" />
+        <figcaption><strong data-edit={`${draftKey}.research.captionLead`}>{copy(`${draftKey}.research.captionLead`, 'Behavioral evidence.')}</strong>{' '}<span data-edit={`${draftKey}.research.captionBody`}>{copy(`${draftKey}.research.captionBody`, 'Funnel performance identified the drop; session recordings showed where the experience began working against customers.')}</span></figcaption>
+      </figure>
+
+      <section class="chapter-intro chapter-intro--full-bleed chapter-intro--magenta">
+        <p class="eyebrow" data-edit={`${draftKey}.promotions.eyebrow`}>{copy(`${draftKey}.promotions.eyebrow`, '02 / The problem with promotions')}</p>
+        <h2 data-edit={`${draftKey}.promotions.title`}>{copy(`${draftKey}.promotions.title`, 'Every offer competed with the mattress.')}</h2>
+        <p data-edit={`${draftKey}.promotions.body`}>{copy(`${draftKey}.promotions.body`, 'Before Add to Cart, customers had to configure the mattress, consider a bed frame, and evaluate bedding and pillows. The page carried the full sales narrative at once, burying the primary job: choosing a mattress.')}</p>
+      </section>
+
+      <section class="case-section--no-rule">
+        <div class="case-intro case-section-intro">
+          <div><p class="eyebrow" data-edit={`${draftKey}.audit.eyebrow`}>{copy(`${draftKey}.audit.eyebrow`, '03 / The other guys')}</p><h2 data-edit={`${draftKey}.audit.title`}>{copy(`${draftKey}.audit.title`, 'The category repeated the same mistake.')}</h2></div>
+          <p class="body-lede" data-edit={`${draftKey}.audit.body`}>{copy(`${draftKey}.audit.body`, 'We audited competitors in and beyond mattresses. Most in-category experiences stacked every cross-sell onto the PDP, repeating the same overloaded pattern. Looking elsewhere surfaced stronger ways to sequence configuration and add-on decisions.')}</p>
+        </div>
+        <figure class="case-media case-media--unbounded">
+          <img src="/assets/work/purple/audit.png" alt="Competitive audit of product configuration and cross-sell patterns" />
+          <figcaption><strong data-edit={`${draftKey}.audit.captionLead`}>{copy(`${draftKey}.audit.captionLead`, 'Competitive and adjacent-market audit.')}</strong>{' '}<span data-edit={`${draftKey}.audit.captionBody`}>{copy(`${draftKey}.audit.captionBody`, 'The opportunity was not a more polished version of the category norm; it was a different sequence.')}</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="chapter-intro chapter-intro--full-bleed">
+        <p class="eyebrow" data-edit={`${draftKey}.architecture.eyebrow`}>{copy(`${draftKey}.architecture.eyebrow`, '04 / Revised page architecture')}</p>
+        <h2 data-edit={`${draftKey}.architecture.title`}>{copy(`${draftKey}.architecture.title`, 'Split one overloaded moment into two focused ones.')}</h2>
+        <p data-edit={`${draftKey}.architecture.body`}>{copy(`${draftKey}.architecture.body`, 'I proposed a post-add-to-cart interstitial for promotions. The PDP would focus on the mattress and bed frame; bedding and pillow decisions would follow once the primary product was in the cart. We preserved the revenue opportunity while cutting the PDP decision load in half.')}</p>
+      </section>
+
+      <figure class="case-media case-media-wide case-media-block case-media--unbounded case-media--paper">
+        <img src="/assets/work/purple/architecture.png" alt="Original Purple mattress PDP flow compared with a simplified flow using a post-add-to-cart interstitial" />
+        <figcaption><strong data-edit={`${draftKey}.architecture.captionLead`}>{copy(`${draftKey}.architecture.captionLead`, 'Original and revised flows.')}</strong>{' '}<span data-edit={`${draftKey}.architecture.captionBody`}>{copy(`${draftKey}.architecture.captionBody`, 'Four promotional decisions moved into a focused interstitial after Add to Cart.')}</span></figcaption>
+      </figure>
+
+      <section>
+        <p class="eyebrow" data-edit={`${draftKey}.exploration.eyebrow`}>{copy(`${draftKey}.exploration.eyebrow`, '05 / Interaction exploration')}</p>
+        <h2 data-edit={`${draftKey}.exploration.title`}>{copy(`${draftKey}.exploration.title`, 'Keep momentum without hiding the choice.')}</h2>
+        <p class="body-lede" data-edit={`${draftKey}.exploration.body`}>{copy(`${draftKey}.exploration.body`, 'I explored layouts, interactions, and transitions for the post-add-to-cart flow. Stakeholder reviews helped narrow the strongest direction before prototyping.')}</p>
+      </section>
+
+      <div class="case-image-grid">
+        <figure class="case-media case-image-card">
+          <button class="case-image-trigger" type="button" data-full-src="/assets/work/purple/exploration-01.png" data-alt="Early mobile Purple product-page concept with a foundation offer before Add to Cart" aria-label="View the early product-page direction at full size">
+            <img src="/assets/work/purple/exploration-01.png" alt="" />
+            <span>View full screen</span>
+          </button>
+          <figcaption><strong data-edit={`${draftKey}.exploration.earlyCaptionLead`}>{copy(`${draftKey}.exploration.earlyCaptionLead`, 'Early direction.')}</strong>{' '}<span data-edit={`${draftKey}.exploration.earlyCaptionBody`}>{copy(`${draftKey}.exploration.earlyCaptionBody`, 'Keeping the bundle on the PDP preserved the original structure, but it still divided attention before commitment.')}</span></figcaption>
+        </figure>
+        <figure class="case-media case-image-card">
+          <button class="case-image-trigger" type="button" data-full-src="/assets/work/purple/exploration-02.png" data-alt="Mobile Purple post-add-to-cart concept with bedding bundles and individual add-ons" aria-label="View the post-add-to-cart direction at full size">
+            <img src="/assets/work/purple/exploration-02.png" alt="" />
+            <span>View full screen</span>
+          </button>
+          <figcaption><strong data-edit={`${draftKey}.exploration.postCartCaptionLead`}>{copy(`${draftKey}.exploration.postCartCaptionLead`, 'Post-add-to-cart direction.')}</strong>{' '}<span data-edit={`${draftKey}.exploration.postCartCaptionBody`}>{copy(`${draftKey}.exploration.postCartCaptionBody`, 'A dedicated next step gave promotions room to be understood without competing with mattress configuration.')}</span></figcaption>
+        </figure>
+      </div>
+
+      <section class="case-intro">
+        <div><p class="eyebrow" data-edit={`${draftKey}.testing.eyebrow`}>{copy(`${draftKey}.testing.eyebrow`, '06 / Beat it up')}</p><h2 data-edit={`${draftKey}.testing.title`}>{copy(`${draftKey}.testing.title`, 'Prototype. Test. Refine.')}</h2></div>
+        <p class="body-lede" data-edit={`${draftKey}.testing.body`}>{copy(`${draftKey}.testing.body`, 'I built clickable prototypes and ran unmoderated studies through UserTesting. The feedback exposed weak cues and moments of uncertainty, giving me a focused list to refine and test again.')}</p>
+      </section>
+
+      <div class="case-image-grid case-image-grid--flush-top">
+        <figure class="case-media case-image-card">
+          <button class="case-image-trigger" type="button" data-full-src="/assets/work/purple/final-design.png" data-alt="Purple post-add-to-cart screen with confirmation messaging and accessory offers" aria-label="View the Add to Cart design at full size">
+            <img src="/assets/work/purple/final-design.png" alt="" />
+            <span>View full screen</span>
+          </button>
+          <figcaption><strong data-edit={`${draftKey}.testing.orientationCaptionLead`}>{copy(`${draftKey}.testing.orientationCaptionLead`, 'Orientation after Add to Cart.')}</strong>{' '}<span data-edit={`${draftKey}.testing.orientationCaptionBody`}>{copy(`${draftKey}.testing.orientationCaptionBody`, 'Confirmation messaging made it clear the mattress was secure before introducing another choice.')}</span></figcaption>
+        </figure>
+        <figure class="case-media case-image-card">
+          <button class="case-image-trigger" type="button" data-full-src="/assets/work/purple/testing.png" data-alt="Purple bedding bundle configuration panel with product selections" aria-label="View the bundle configuration design at full size">
+            <img src="/assets/work/purple/testing.png" alt="" />
+            <span>View full screen</span>
+          </button>
+          <figcaption><strong data-edit={`${draftKey}.testing.configurationCaptionLead`}>{copy(`${draftKey}.testing.configurationCaptionLead`, 'Guided configuration.')}</strong>{' '}<span data-edit={`${draftKey}.testing.configurationCaptionBody`}>{copy(`${draftKey}.testing.configurationCaptionBody`, 'Visual cues and UX writing worked together so customers could understand where they were, adjust the bundle, or continue without it.')}</span></figcaption>
+        </figure>
+      </div>
+
+      <section class="case-intro case-section--no-rule">
+        <p class="eyebrow" data-edit={`${draftKey}.launch.eyebrow`}>{copy(`${draftKey}.launch.eyebrow`, '07 / Watch and learn')}</p>
+        <h2 data-edit={`${draftKey}.launch.title`}>{copy(`${draftKey}.launch.title`, "Handoff wasn't the finish line.")}</h2>
+        <p class="body-lede" data-edit={`${draftKey}.launch.summary`}>
+          {copy(
+            `${draftKey}.launch.summary`,
+            `${copy(`${draftKey}.launch.body`, 'We launched the A/B test with 10% of traffic, then increased exposure to 50%. After two weeks, the revised sequence was the clear winner, so we moved it to 100%.')} ${copy(`${draftKey}.launch.conclusion`, "After roughly four weeks live, the results confirmed the hypothesis: customers didn't need fewer opportunities. They needed them at the right time.")}`
+          )}
+        </p>
+      </section>
+
+      <section class="case-stat-panel" aria-label="Experiment results">
+        <p class="eyebrow" data-edit={`${draftKey}.results.eyebrow`}>{copy(`${draftKey}.results.eyebrow`, 'The proof')}</p>
+        <div class="case-stat-grid">
+          <p><strong data-edit={`${draftKey}.results.0.value`}>{copy(`${draftKey}.results.0.value`, '61%')}</strong><span data-edit={`${draftKey}.results.0.label`}>{copy(`${draftKey}.results.0.label`, 'lift in bedding upgrades')}</span></p>
+          <p><strong data-edit={`${draftKey}.results.1.value`}>{copy(`${draftKey}.results.1.value`, '7%')}</strong><span data-edit={`${draftKey}.results.1.label`}>{copy(`${draftKey}.results.1.label`, 'increase in average order value')}</span></p>
+          <p><strong data-edit={`${draftKey}.results.2.value`}>{copy(`${draftKey}.results.2.value`, '35%')}</strong><span data-edit={`${draftKey}.results.2.label`}>{copy(`${draftKey}.results.2.label`, 'increase in bed frames purchased with a mattress')}</span></p>
+        </div>
+      </section>
+
+      <section class="case-section--no-rule case-heading--medium">
+        <p class="eyebrow" data-edit={`${draftKey}.lessons.eyebrow`}>{copy(`${draftKey}.lessons.eyebrow`, 'What I took forward')}</p>
+        <h2 data-edit={`${draftKey}.lessons.title`}>{copy(`${draftKey}.lessons.title`, 'The process shaped how I use evidence.')}</h2>
+        <ol class="case-list">
+          <li><span>01</span><div><h3 data-edit={`${draftKey}.lessons.0.title`}>{copy(`${draftKey}.lessons.0.title`, 'Give every decision a defensible reason')}</h3><p data-edit={`${draftKey}.lessons.0.body`}>{copy(`${draftKey}.lessons.0.body`, 'Critique gets easier when a choice connects to observed behavior, a customer need, or a business constraint.')}</p></div></li>
+          <li><span>02</span><div><h3 data-edit={`${draftKey}.lessons.1.title`}>{copy(`${draftKey}.lessons.1.title`, 'Treat resistance as a signal')}</h3><p data-edit={`${draftKey}.lessons.1.body`}>{copy(`${draftKey}.lessons.1.body`, 'Hesitation around a direction is an invitation to ask better questions—not something to push through with more polish.')}</p></div></li>
+          <li><span>03</span><div><h3 data-edit={`${draftKey}.lessons.2.title`}>{copy(`${draftKey}.lessons.2.title`, 'Know what the evidence can prove')}</h3><p data-edit={`${draftKey}.lessons.2.body`}>{copy(`${draftKey}.lessons.2.body`, 'Qualitative research explains behavior; experimentation measures impact. Each has a different job.')}</p></div></li>
+          <li><span>04</span><div><h3 data-edit={`${draftKey}.lessons.3.title`}>{copy(`${draftKey}.lessons.3.title`, 'Observe the work after it ships')}</h3><p data-edit={`${draftKey}.lessons.3.body`}>{copy(`${draftKey}.lessons.3.body`, "Reaching production isn't proof of success. Real behavior and measurable outcomes close the loop.")}</p></div></li>
+        </ol>
+      </section>
+
+      <nav class="case-next" aria-label="Draft navigation">
+        <a href="/work/product-page-architecture/">← Compare with current case study</a>
+        <a href="/#work">All selected work</a>
+      </nav>
+
+      <dialog class="case-image-dialog" aria-label="Expanded case study image">
+        <button class="case-dialog-close" type="button" aria-label="Close expanded image">Close</button>
+        <img src="" alt="" />
+      </dialog>
+    </div>
+  </article>
+
+  <script is:inline>
+    const dialog = document.querySelector('.case-image-dialog');
+    const dialogImage = dialog?.querySelector('img');
+
+    document.querySelectorAll('.case-image-trigger').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        if (!dialog || !dialogImage) return;
+        dialogImage.src = trigger.dataset.fullSrc ?? '';
+        dialogImage.alt = trigger.dataset.alt ?? '';
+        dialog.showModal();
+      });
+    });
+
+    dialog?.querySelector('.case-dialog-close')?.addEventListener('click', () => dialog.close());
+    dialog?.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
+</BaseLayout>

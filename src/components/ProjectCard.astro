@@ -16,7 +16,7 @@ const { project, featured = false, coverStyle = 'clean' } = Astro.props as { pro
           </div>
         </div>
       ) : project.slug === 'recognition-and-rewards' ? (
-        <div class="story-cover bamboo-story-cover" role="img" aria-label="Concept cover for BambooHR Recognition and Rewards">
+        <div class="story-cover" role="img" aria-label="Concept cover for BambooHR Recognition and Rewards">
           <div class="story-copy">
             <p class="story-kicker">BAMBOOHR / 0→1 PRODUCT</p>
             <div>
@@ -25,7 +25,7 @@ const { project, featured = false, coverStyle = 'clean' } = Astro.props as { pro
             </div>
             <p class="story-status"><span></span>CASE STUDY IN DEVELOPMENT</p>
           </div>
-          <div class="bamboo-story-visual">
+          <div class="story-visual story-visual--yellow">
             <p class="concept-label">CONCEPT MOCKUP</p>
             <article class="recognition-card">
               <div class="recognition-people"><span>MC</span><span>LR</span></div>
@@ -36,7 +36,7 @@ const { project, featured = false, coverStyle = 'clean' } = Astro.props as { pro
           </div>
         </div>
       ) : project.slug === 'ai-order-cloud' ? (
-        <div class="story-cover fabric-story-cover" role="img" aria-label="Fabric AI Order Cloud project: from bolt-on chatbot to embedded workflows">
+        <div class="story-cover" role="img" aria-label="Fabric AI Order Cloud project: from bolt-on chatbot to embedded workflows">
           <div class="story-copy">
             <p class="story-kicker">FABRIC / AI STRATEGY</p>
             <div>
@@ -62,14 +62,14 @@ const { project, featured = false, coverStyle = 'clean' } = Astro.props as { pro
           </div>
         </div>
       ) : project.slug === 'product-page-architecture' ? (
-        <div class="story-cover purple-story-cover" role="img" aria-label="Purple product page architecture project: fewer decisions and better outcomes">
+        <div class="story-cover" role="img" aria-label="Purple product page architecture project: fewer decisions and better outcomes">
           <div class="story-copy">
             <p class="story-kicker">PURPLE / COMMERCE UX</p>
             <div>
               <h4>Fewer decisions.<br />Better outcomes.</h4>
               <p class="story-premise">Resequencing a high-consideration purchase to reduce cognitive load without sacrificing cross-sell opportunity.</p>
             </div>
-            <p class="story-outcome purple-story-outcome"><strong>61%</strong><span>increase in bedding upgrades</span></p>
+            <p class="story-outcome story-outcome--yellow"><strong>61%</strong><span>increase in bedding upgrades</span></p>
           </div>
           <div class="decision-sequence" aria-label="Before: mattress and all add-ons presented together. After: mattress choice and add-ons separated into two focused steps.">
             <p class="sequence-label">BEFORE / ONE OVERLOADED MOMENT</p>

@@ -9,7 +9,7 @@ export type Project = {
   highlight?: { eyebrow: string; title: string; body: string; value: string; label: string };
   adminChapter?: { eyebrow: string; title: string; body: string };
   employeeChapter?: { eyebrow: string; title: string; body: string };
-  gallery?: { src: string; alt: string; caption?: string }[];
+  gallery?: { src: string; alt: string; caption?: string; fit?: 'contain' | 'landscape-crop' }[];
 };
 
 export const projects: Project[] = [
@@ -60,10 +60,10 @@ export const projects: Project[] = [
     evidenceNote: 'The product had been live for roughly one month when I left BambooHR, so the 56% increase should be read as an early engagement signal rather than proof of sustained adoption.',
     gallery: [
       { src: '/assets/work/bamboohr/settings.png', alt: 'Recognition and Rewards settings organized into recognition, rewards, and optional features', caption: 'The settings hub gives Admins a map of the system before asking them to configure it.' },
-      { src: '/assets/work/bamboohr/points.png', alt: 'Points Management page showing monthly allocation groups and recurring totals', caption: 'Allocation rules stay visible, comparable, and financially legible after they are created.' },
-      { src: '/assets/work/bamboohr/allocation.png', alt: 'New monthly point allocation dialog with group, manager, and individual audience options' },
+      { src: '/assets/work/bamboohr/points.png', alt: 'Points Management page showing monthly allocation groups and recurring totals', caption: 'Allocation rules stay visible, comparable, and financially legible after they are created.', fit: 'landscape-crop' },
+      { src: '/assets/work/bamboohr/allocation.png', alt: 'New monthly point allocation dialog with group, manager, and individual audience options', fit: 'landscape-crop' },
       { src: '/assets/work/bamboohr/feed.png', alt: 'Recognition feed with posts, reactions, point balances, and contextual AI suggestions', caption: 'Suggestions appear beside the feed at moments employees already associate with recognition.' },
-      { src: '/assets/work/bamboohr/composer.png', alt: 'Give Recognition dialog over the employee recognition feed', caption: 'Employees retain control of the recipient, message, values, points, privacy, and final send.' }
+      { src: '/assets/work/bamboohr/composer.png', alt: 'Give Recognition dialog over the employee recognition feed', caption: 'Employees retain control of the recipient, message, values, points, privacy, and final send.', fit: 'landscape-crop' }
     ]
   },
   {

@@ -15,5 +15,11 @@
   "projects.recognition-and-rewards.problem": "Recognition & Rewards had to serve two very different jobs. Admins needed control over eligibility, points, rewards, and automation. Employees needed a fast, natural way to recognize someone. The challenge was to minimize complexity on the admin side and remove friction from the employee side.",
   "about.body": "My approach is pragmatic: understand the human problem, connect it to a meaningful business outcome, and give teams enough clarity to make strong decisions. Away from work, I’m usually spending time with my family and dogs, taking photos, or building something.",
   "projects.recognition-and-rewards.outcome": "Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.",
-  "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction"
+  "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction",
+  "projects.product-page-architecture.headings.context": "Why it mattered.",
+  "projects.product-page-architecture.draft.launch.title": "Hand-off isn't the end.",
+  "projects.product-page-architecture.draft.lessons.title": "Better questions provide better answers.",
+  "projects.product-page-architecture.draft.launch.conclusion": "After roughly four weeks live, the results confirmed the hypothesis: customers didn't need fewer opportunities; they just needed them in the right order.",
+  "projects.product-page-architecture.draft.research.body": "After a redesign by an external agency, upgrades and cross-sells had flattened. Funnel data showed the decline, but not the cause. I paired the quantitative date with user sessions and heat maps from Quantum Metric. The research revealed a clear pattern of hesitation and second guessing with each additional decision we put on the PDP.",
+  "projects.product-page-architecture.draft.research.title": "The numbers showed a decline. Research showed us why."
 }

@@ -8,13 +8,13 @@ export function getStaticPaths() {
   return publishedProjects.map(project => ({ params: { slug: project.slug }, props: { project } }));
 }
 const { project } = Astro.props;
-const isBamboo = project.slug === 'recognition-and-rewards';
+const usesChapterLayout = Boolean(project.adminChapter || project.employeeChapter);
 const currentIndex = publishedProjects.findIndex(item => item.slug === project.slug);
 const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.length];
 ---
 <BaseLayout title={`${project.title} — Gaige Redd`} description={project.summary}>
   <CaseStudyGate />
-  <article class:list={['case-study', isBamboo && 'case-study-bamboo']}>
+  <article class="case-study">
     <header class="case-hero wrap">
       <a class="back-link" href="/#work" data-edit={`projects.${project.slug}.backLabel`}>{copy(`projects.${project.slug}.backLabel`, '← Selected work')}</a>
       <p class="eyebrow" data-edit={`projects.${project.slug}.caseLabel`}>{copy(`projects.${project.slug}.caseLabel`, `${project.company} / Case study ${project.number}`)}</p>
@@ -37,18 +37,18 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         <p class="body-lede" data-edit={`projects.${project.slug}.problem`}>{copy(`projects.${project.slug}.problem`, project.problem)}</p>
       </section>
 
-      <section class="split-section">
+      <section class="case-intro">
         <div><p class="eyebrow" data-edit={`projects.${project.slug}.labels.context`}>{copy(`projects.${project.slug}.labels.context`, 'Context')}</p><h2 data-edit={`projects.${project.slug}.headings.context`}>{copy(`projects.${project.slug}.headings.context`, 'Why this problem mattered.')}</h2></div>
-        <p data-edit={`projects.${project.slug}.context`}>{copy(`projects.${project.slug}.context`, project.context)}</p>
+        <p class="body-lede" data-edit={`projects.${project.slug}.context`}>{copy(`projects.${project.slug}.context`, project.context)}</p>
       </section>
 
-      <section class="split-section">
+      <section class="case-intro">
         <div><p class="eyebrow" data-edit={`projects.${project.slug}.labels.role`}>{copy(`projects.${project.slug}.labels.role`, 'My role')}</p><h2 data-edit={`projects.${project.slug}.headings.role`}>{copy(`projects.${project.slug}.headings.role`, 'Where I led.')}</h2></div>
-        <p data-edit={`projects.${project.slug}.role`}>{copy(`projects.${project.slug}.role`, project.role)}</p>
+        <p class="body-lede" data-edit={`projects.${project.slug}.role`}>{copy(`projects.${project.slug}.role`, project.role)}</p>
       </section>
 
       {project.adminChapter && (
-        <section class="chapter-intro chapter-admin">
+        <section class="chapter-intro chapter-intro--spaced chapter-intro--accent-label chapter-intro--followed-by-media">
           <p class="eyebrow" data-edit={`projects.${project.slug}.adminChapter.eyebrow`}>{copy(`projects.${project.slug}.adminChapter.eyebrow`, project.adminChapter.eyebrow)}</p>
           <h2 data-edit={`projects.${project.slug}.adminChapter.title`}>{copy(`projects.${project.slug}.adminChapter.title`, project.adminChapter.title)}</h2>
           <p data-edit={`projects.${project.slug}.adminChapter.body`}>{copy(`projects.${project.slug}.adminChapter.body`, project.adminChapter.body)}</p>
@@ -56,8 +56,8 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
       )}
 
       {project.gallery?.[0] && (
-        <figure class:list={['case-media', 'case-media-wide', isBamboo && 'case-media-settings']}>
-          <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading={isBamboo ? 'eager' : 'lazy'} />
+        <figure class="case-media case-media-wide">
+          <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading="eager" />
           {project.gallery[0].caption && <figcaption data-edit={`projects.${project.slug}.gallery.0.caption`}>{copy(`projects.${project.slug}.gallery.0.caption`, project.gallery[0].caption)}</figcaption>}
         </figure>
       )}
@@ -72,11 +72,11 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
 
       {project.gallery && project.gallery.length > 2 && (
         <div class="media-pair">
-          {project.gallery.slice(1, 3).map((item, i) => <figure class="case-media"><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 1}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 1}.caption`, item.caption)}</figcaption>}</figure>)}
+          {project.gallery.slice(1, 3).map((item, i) => <figure class:list={['case-media', item.fit === 'landscape-crop' && 'case-media--landscape-crop']}><img src={item.src} alt={item.alt} loading="lazy" />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 1}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 1}.caption`, item.caption)}</figcaption>}</figure>)}
         </div>
       )}
 
-      {!isBamboo && <section class="decision-section">
+      {!usesChapterLayout && <section class="decision-section">
         <p class="eyebrow" data-edit={`projects.${project.slug}.labels.decisions`}>{copy(`projects.${project.slug}.labels.decisions`, 'Key decisions')}</p>
         <h2 data-edit={`projects.${project.slug}.headings.decisions`}>{copy(`projects.${project.slug}.headings.decisions`, 'The choices that shaped the work.')}</h2>
         <div class="decision-grid">
@@ -85,7 +85,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
       </section>}
 
       {project.employeeChapter && (
-        <section class="chapter-intro chapter-employee">
+        <section class="chapter-intro chapter-intro--spaced chapter-intro--magenta chapter-intro--accent-label">
           <p class="eyebrow" data-edit={`projects.${project.slug}.employeeChapter.eyebrow`}>{copy(`projects.${project.slug}.employeeChapter.eyebrow`, project.employeeChapter.eyebrow)}</p>
           <h2 data-edit={`projects.${project.slug}.employeeChapter.title`}>{copy(`projects.${project.slug}.employeeChapter.title`, project.employeeChapter.title)}</h2>
           <p data-edit={`projects.${project.slug}.employeeChapter.body`}>{copy(`projects.${project.slug}.employeeChapter.body`, project.employeeChapter.body)}</p>
@@ -94,7 +94,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
 
       {project.gallery && project.gallery.length > 3 && (
         <div class="case-gallery">
-          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide', item.src.endsWith('/feed.png') && 'case-media-natural']}><img src={item.src} alt={item.alt} loading={isBamboo ? 'eager' : 'lazy'} />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
+          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide', item.fit === 'landscape-crop' && 'case-media--landscape-crop']}><img src={item.src} alt={item.alt} loading="lazy" />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
         </div>
       )}
 
@@ -111,7 +111,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
               <span data-edit={`projects.${project.slug}.highlight.label`}>{copy(`projects.${project.slug}.highlight.label`, project.highlight.label)}</span>
             </p>
           </section>
-          {isBamboo && project.evidenceNote && (
+          {project.evidenceNote && (
             <p class="highlight-disclaimer">
               <span>Measurement context:</span>{' '}
               <span data-edit={`projects.${project.slug}.evidenceNote`}>{copy(`projects.${project.slug}.evidenceNote`, project.evidenceNote)}</span>
@@ -120,7 +120,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         </>
       )}
 
-      {!isBamboo && <section class="outcome">
+      {!usesChapterLayout && <section class="outcome">
         <p class="eyebrow" data-edit={`projects.${project.slug}.labels.outcome`}>{copy(`projects.${project.slug}.labels.outcome`, 'Outcome')}</p>
         <h2 data-edit={`projects.${project.slug}.headings.outcome`}>{copy(`projects.${project.slug}.headings.outcome`, 'What changed.')}</h2>
         <div class="outcome-stats">
