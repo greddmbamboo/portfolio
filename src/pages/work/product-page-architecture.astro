@@ -1,11 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyGate from '../../components/CaseStudyGate.astro';
 import { projects } from '../../data/projects';
 import { copy } from '../../data/copy';
-
-if (import.meta.env.PROD) {
-  return Astro.redirect('/work/product-page-architecture/', 302);
-}
 
 const project = projects.find(item => item.slug === 'product-page-architecture')!;
 const key = `projects.${project.slug}`;
@@ -13,16 +10,13 @@ const draftKey = `${key}.draft`;
 ---
 
 <BaseLayout
-  title="Product Page Architecture — Working Draft — Gaige Redd"
+  title="Product Page Architecture — Gaige Redd"
   description={project.summary}
-  noindex
 >
+  <CaseStudyGate />
   <article class="case-study case-study--narrative">
     <header class="case-hero wrap">
-      <div class="case-draft-status">
-        <a class="back-link" href="/work/product-page-architecture/">← Current case study</a>
-        <span>Working draft / Unlisted</span>
-      </div>
+      <a class="back-link" href="/#work">← Selected work</a>
       <p class="eyebrow" data-edit={`${draftKey}.caseLabel`}>{copy(`${draftKey}.caseLabel`, copy(`${key}.caseLabel`, `${project.company} / Case study ${project.number}`))}</p>
       <h1 data-edit={`${draftKey}.title`}>{copy(`${draftKey}.title`, copy(`${key}.title`, project.title))}</h1>
       <p class="case-summary" data-edit={`${draftKey}.headline`}>{copy(`${draftKey}.headline`, copy(`${key}.headline`, project.headline))}</p>
@@ -167,9 +161,9 @@ const draftKey = `${key}.draft`;
         </ol>
       </section>
 
-      <nav class="case-next" aria-label="Draft navigation">
-        <a href="/work/product-page-architecture/">← Compare with current case study</a>
-        <a href="/#work">All selected work</a>
+      <nav class="case-next" aria-label="Case study navigation">
+        <a href="/#work">← All selected work</a>
+        <a href="/work/recognition-and-rewards/">Next: BambooHR ↗</a>
       </nav>
 
       <dialog class="case-image-dialog" aria-label="Expanded case study image">

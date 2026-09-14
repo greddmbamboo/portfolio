@@ -210,8 +210,8 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .decision-grid article:nth-child(6n + 3),
 .decision-grid article:nth-child(6n + 4) { border-top-color:#f2d21b; }
 .decision-grid article span { color:#a8a89f; }
-.decision-grid h3 { margin:auto 0 18px; font-size:25px; line-height:1.1; font-weight:500; }
-.decision-grid p { min-height:6.2em; margin:0; color:#b7b7ae; font-size:15px; line-height:1.55; }
+.decision-grid h3 { margin:clamp(55px,6vw,80px) 0 18px; font-size:25px; line-height:1.1; font-weight:500; }
+.decision-grid p { margin:0; color:#b7b7ae; font-size:15px; line-height:1.55; }
 .case-media { margin:0; }.case-media img { width:100%; max-height:900px; display:block; object-fit:contain; background:#e4e3dc; outline:1px solid rgba(23,23,19,.14); outline-offset:-1px; }.case-media figcaption { margin-top:12px; color:var(--muted); font-size:13px; max-width:650px; }
 .case-media-wide { grid-column:1/-1; }
 .case-media--landscape-crop img { aspect-ratio:1710 / 894; object-fit:cover; object-position:center bottom; }
@@ -297,7 +297,6 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
   .case-draft-status { display:block; }.case-draft-status > span { display:block; margin:-45px 0 60px; }.case-study--narrative .case-body > section { padding-block:85px; }.case-split-section,.case-image-grid,.case-stat-grid { grid-template-columns:1fr; }.case-split-section { gap:0; }.case-split-section h2 { font-size:44px; }.case-split-section > p:not(.eyebrow) { margin-top:28px; }.case-intro .body-lede { margin-top:38px; }.case-media-block,.case-image-grid { padding-block:65px; }.chapter-intro--full-bleed,.case-stat-panel { margin-inline:-18px; }.case-section-intro { padding-bottom:55px; }.case-image-grid { gap:55px; }.case-image-trigger { height:min(560px,72svh); }.case-stat-panel { padding:55px 18px!important; }.case-stat-grid { gap:38px; margin-top:50px; }.case-stat-grid strong { font-size:76px; }
   .case-media--compact img { width:100%; height:auto; }
   .case-media--compact figcaption { width:100%; }
-  .decision-grid p { min-height:0; }
   .case-workflows { gap:90px; }
   .case-workflow { gap:36px; }
 }

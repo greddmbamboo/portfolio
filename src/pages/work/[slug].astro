@@ -5,9 +5,16 @@ import { publishedProjects } from '../../data/projects';
 import { copy } from '../../data/copy';
 
 export function getStaticPaths() {
-  return publishedProjects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+  const standardProjects = publishedProjects
+    .filter(project => project.slug !== 'product-page-architecture')
+    .map(project => ({ params: { slug: project.slug }, props: { project, archived: false } }));
+  const archivedPurple = publishedProjects.find(project => project.slug === 'product-page-architecture');
+
+  return archivedPurple
+    ? [...standardProjects, { params: { slug: 'product-page-architecture-archive' }, props: { project: archivedPurple, archived: true } }]
+    : standardProjects;
 }
-const { project } = Astro.props;
+const { project, archived = false } = Astro.props;
 const usesChapterLayout = Boolean(project.adminChapter || project.employeeChapter);
 const galleryPairAfterDecisions = Boolean(project.galleryPairAfterDecisions);
 const trailingGalleryStart = usesChapterLayout || galleryPairAfterDecisions ? 1 : 3;
@@ -15,7 +22,7 @@ const trailingGallery = project.gallery?.slice(trailingGalleryStart) ?? [];
 const currentIndex = publishedProjects.findIndex(item => item.slug === project.slug);
 const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.length];
 ---
-<BaseLayout title={`${project.title} — Gaige Redd`} description={project.summary}>
+<BaseLayout title={`${project.title}${archived ? ' — Archived' : ''} — Gaige Redd`} description={project.summary} noindex={archived}>
   <CaseStudyGate />
   <article class="case-study">
     <header class="case-hero wrap">

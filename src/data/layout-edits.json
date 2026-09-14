@@ -10,5 +10,14 @@
   },
   "[data-page=\"/\"] #main > section.hero:nth-of-type(1) > h1.hero-statement": {
     "margin-top": "20px"
+  },
+  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > div.case-body > section.case-split-section:nth-of-type(3)": {
+    "column-gap": "8%"
+  },
+  ".chapter-intro": {
+    "column-gap": "8%"
+  },
+  ".case-split-section": {
+    "column-gap": "2%"
   }
 }
