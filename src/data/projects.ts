@@ -5,11 +5,14 @@ export type Project = {
   headline?: string; problem?: string; context?: string; role?: string;
   approach?: { title: string; body: string }[];
   decisions?: { title: string; body: string }[];
+  decisionIntro?: { headline: string; body: string };
+  workflowShowcases?: { eyebrow: string; title: string; body: string; media: string; alt: string }[];
   outcomes?: { value: string; label: string }[]; outcomeCopy?: string; evidenceNote?: string;
   highlight?: { eyebrow: string; title: string; body: string; value: string; label: string };
   adminChapter?: { eyebrow: string; title: string; body: string };
   employeeChapter?: { eyebrow: string; title: string; body: string };
-  gallery?: { src: string; alt: string; caption?: string; fit?: 'contain' | 'landscape-crop' }[];
+  galleryPairAfterDecisions?: boolean;
+  gallery?: { src: string; alt: string; caption?: string; fit?: 'contain' | 'landscape-crop'; treatment?: 'paper' | 'clean'; overlay?: { src: string; alt: string } }[];
 };
 
 export const projects: Project[] = [
@@ -60,8 +63,6 @@ export const projects: Project[] = [
     evidenceNote: 'The product had been live for roughly one month when I left BambooHR, so the 56% increase should be read as an early engagement signal rather than proof of sustained adoption.',
     gallery: [
       { src: '/assets/work/bamboohr/settings.png', alt: 'Recognition and Rewards settings organized into recognition, rewards, and optional features', caption: 'The settings hub gives Admins a map of the system before asking them to configure it.' },
-      { src: '/assets/work/bamboohr/points.png', alt: 'Points Management page showing monthly allocation groups and recurring totals', caption: 'Allocation rules stay visible, comparable, and financially legible after they are created.', fit: 'landscape-crop' },
-      { src: '/assets/work/bamboohr/allocation.png', alt: 'New monthly point allocation dialog with group, manager, and individual audience options', fit: 'landscape-crop' },
       { src: '/assets/work/bamboohr/feed.png', alt: 'Recognition feed with posts, reactions, point balances, and contextual AI suggestions', caption: 'Suggestions appear beside the feed at moments employees already associate with recognition.' },
       { src: '/assets/work/bamboohr/composer.png', alt: 'Give Recognition dialog over the employee recognition feed', caption: 'Employees retain control of the recipient, message, values, points, privacy, and final send.', fit: 'landscape-crop' }
     ]
@@ -82,9 +83,32 @@ export const projects: Project[] = [
       { title: 'Prototype the relationship', body: 'The team explored how users would move between conversation and action, inspect the rationale behind a recommendation, and recognize AI-generated content without losing their place or sense of control.' }
     ],
     decisions: [
-      { title: 'Go deeper than chat', body: 'I pushed the direction beyond a bolt-on assistant and toward AI embedded in the workflows where people already made decisions.' },
-      { title: 'Make trust visible', body: 'Recommendations needed rationale, clear provenance, and an easy path to accept, revise, or reject an action.' },
-      { title: 'Create a reusable language', body: 'We translated the interaction principles into AI-specific patterns and components that could scale across the product.' }
+      { title: 'Trustworthy', body: 'Transparency is key here—AI should give a rationale for recommendations and provide an easy way to opt in or out.' },
+      { title: 'Relevant', body: 'AI should enable me to do my job faster by providing relevant, contextual information at the right time.' },
+      { title: 'Unobtrusive', body: 'AI shouldn’t distract, obstruct necessary information, or derail tasks by requiring me to navigate to another screen to complete or verify an AI action.' },
+      { title: 'Bold', body: 'AI needs to be exponentially better than the current experience. It can’t just be “better”; it has to be amazing.' },
+      { title: 'Predictable', body: 'Use familiar patterns with AI interactions to match mental models and reduce cognitive load. If there is friction in the experience, it will not be adopted.' },
+      { title: 'Consistent', body: 'AI interactions should be instantly recognizable as such, and entry points should be consistent across the platform.' }
+    ],
+    decisionIntro: {
+      headline: 'The choices that shaped the work.',
+      body: 'As designers, it’s rare that you truly get to break new ground, so this was a golden opportunity for the team. I carved out time for a quick off-site so that we, as a design team, could think through how AI at Fabric would show up. In addition to some UI/UX strategy, we came up with six guiding principles. I believe they still hold up.'
+    },
+    workflowShowcases: [
+      {
+        eyebrow: 'PIM User Flow Demo',
+        title: 'Product Description Analyzer Workflow',
+        body: 'Merchandising managers used to comb through spreadsheets and check analytics—often requiring additional support—to get even a fuzzy picture of how their product descriptions were performing. With AI, they could score their entire catalog in minutes.',
+        media: '/assets/work/fabric/split-shipments.gif',
+        alt: 'Prototype of an AI product-description analyzer workflow'
+      },
+      {
+        eyebrow: 'OMS User Flow Demo',
+        title: 'Split Shipments Workflow',
+        body: 'Shipments fulfilled from two or more locations cost businesses money through added shipping fees and handling time. Supply-chain managers now had critical data instantly at their fingertips and could set up fulfillment rules in minutes instead of weeks.',
+        media: '/assets/work/fabric/description-analyzer.gif',
+        alt: 'Prototype of an AI-assisted split-shipment workflow'
+      }
     ],
     outcomes: [
       { value: '49%', label: 'faster data analysis' },
@@ -92,14 +116,10 @@ export const projects: Project[] = [
       { value: '40%', label: 'improvement in self-resolution' }
     ],
     outcomeCopy: 'The beta results supported the central bet: AI was most useful when it helped people complete specific work with the context and controls needed to trust the result.',
+    galleryPairAfterDecisions: true,
     gallery: [
-      { src: '/assets/work/fabric/workshop.png', alt: 'A cross-functional team working through AI opportunities on a wall', caption: 'Cross-functional alignment made the opportunity concrete before the team committed to a solution.' },
-      { src: '/assets/work/fabric/strategy.png', alt: 'AI opportunity and strategy artifacts from the Fabric project' },
-      { src: '/assets/work/fabric/personas.png', alt: 'Target persona and workflow artifacts for merchandising and logistics users' },
-      { src: '/assets/work/fabric/team-brain.png', alt: 'Collaborative sketches produced by the Fabric design team', caption: 'Live sketching let the team challenge and combine ideas before polishing screens.' },
-      { src: '/assets/work/fabric/components.png', alt: 'AI-specific interface components created for Fabric' },
-      { src: '/assets/work/fabric/split-shipments.gif', alt: 'Prototype of an AI-assisted split shipment workflow' },
-      { src: '/assets/work/fabric/description-analyzer.gif', alt: 'Prototype of an AI product-description analyzer' }
+      { src: '/assets/work/fabric/workshop-photo.png', alt: 'A cross-functional team working through AI opportunities during an off-site workshop', caption: 'Cross-functional alignment made the opportunity concrete before the team committed to a solution.', treatment: 'clean', overlay: { src: '/assets/work/fabric/workshop-board.png', alt: 'The opportunity map and guiding principles produced during the workshop' } },
+      { src: '/assets/work/fabric/personas.png', alt: 'The Fabric design team collaborating around a whiteboard during an AI strategy off-site', caption: 'Our team off-site gave us a chance to be in the same room and focus on how we could help shape the future of AI at Fabric.', treatment: 'clean' }
     ]
   },
   {

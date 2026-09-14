@@ -9,6 +9,9 @@ export function getStaticPaths() {
 }
 const { project } = Astro.props;
 const usesChapterLayout = Boolean(project.adminChapter || project.employeeChapter);
+const galleryPairAfterDecisions = Boolean(project.galleryPairAfterDecisions);
+const trailingGalleryStart = usesChapterLayout || galleryPairAfterDecisions ? 1 : 3;
+const trailingGallery = project.gallery?.slice(trailingGalleryStart) ?? [];
 const currentIndex = publishedProjects.findIndex(item => item.slug === project.slug);
 const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.length];
 ---
@@ -42,7 +45,7 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         <p class="body-lede" data-edit={`projects.${project.slug}.context`}>{copy(`projects.${project.slug}.context`, project.context)}</p>
       </section>
 
-      <section class="case-intro">
+      <section class="case-split-section">
         <div><p class="eyebrow" data-edit={`projects.${project.slug}.labels.role`}>{copy(`projects.${project.slug}.labels.role`, 'My role')}</p><h2 data-edit={`projects.${project.slug}.headings.role`}>{copy(`projects.${project.slug}.headings.role`, 'Where I led.')}</h2></div>
         <p class="body-lede" data-edit={`projects.${project.slug}.role`}>{copy(`projects.${project.slug}.role`, project.role)}</p>
       </section>
@@ -56,8 +59,13 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
       )}
 
       {project.gallery?.[0] && (
-        <figure class="case-media case-media-wide">
-          <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading="eager" />
+        <figure class:list={['case-media', 'case-media-wide', project.gallery[0].treatment === 'paper' && 'case-media--paper', project.gallery[0].treatment === 'clean' && 'case-media--clean']}>
+          {project.gallery[0].overlay ? (
+            <div class="case-media-composite">
+              <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading="eager" />
+              <img class="case-media-composite__overlay" src={project.gallery[0].overlay.src} alt={project.gallery[0].overlay.alt} loading="eager" />
+            </div>
+          ) : <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading="eager" />}
           {project.gallery[0].caption && <figcaption data-edit={`projects.${project.slug}.gallery.0.caption`}>{copy(`projects.${project.slug}.gallery.0.caption`, project.gallery[0].caption)}</figcaption>}
         </figure>
       )}
@@ -70,15 +78,27 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         </ol>
       </section>
 
-      {project.gallery && project.gallery.length > 2 && (
+      {!usesChapterLayout && !galleryPairAfterDecisions && project.gallery && project.gallery.length > 2 && (
         <div class="media-pair">
-          {project.gallery.slice(1, 3).map((item, i) => <figure class:list={['case-media', item.fit === 'landscape-crop' && 'case-media--landscape-crop']}><img src={item.src} alt={item.alt} loading="lazy" />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 1}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 1}.caption`, item.caption)}</figcaption>}</figure>)}
+          {project.gallery.slice(1, 3).map((item, i) => <figure class:list={['case-media', item.fit === 'landscape-crop' && 'case-media--landscape-crop', item.treatment === 'paper' && 'case-media--paper', item.treatment === 'clean' && 'case-media--clean']}>{item.overlay ? <div class="case-media-composite"><img src={item.src} alt={item.alt} loading="lazy" /><img class="case-media-composite__overlay" src={item.overlay.src} alt={item.overlay.alt} loading="lazy" /></div> : <img src={item.src} alt={item.alt} loading="lazy" />}{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 1}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 1}.caption`, item.caption)}</figcaption>}</figure>)}
         </div>
       )}
 
-      {!usesChapterLayout && <section class="decision-section">
-        <p class="eyebrow" data-edit={`projects.${project.slug}.labels.decisions`}>{copy(`projects.${project.slug}.labels.decisions`, 'Key decisions')}</p>
-        <h2 data-edit={`projects.${project.slug}.headings.decisions`}>{copy(`projects.${project.slug}.headings.decisions`, 'The choices that shaped the work.')}</h2>
+      {!usesChapterLayout && <section class:list={['decision-section', galleryPairAfterDecisions && 'decision-section--media-follow']}>
+        {project.decisionIntro ? (
+          <div class="case-split-section">
+            <div>
+              <p class="eyebrow" data-edit={`projects.${project.slug}.labels.decisions`}>{copy(`projects.${project.slug}.labels.decisions`, 'Key decisions')}</p>
+              <h2 data-edit={`projects.${project.slug}.decisionIntro.headline`}>{copy(`projects.${project.slug}.decisionIntro.headline`, project.decisionIntro.headline)}</h2>
+            </div>
+            <p class="body-lede" data-edit={`projects.${project.slug}.decisionIntro.body`}>{copy(`projects.${project.slug}.decisionIntro.body`, project.decisionIntro.body)}</p>
+          </div>
+        ) : (
+          <>
+            <p class="eyebrow" data-edit={`projects.${project.slug}.labels.decisions`}>{copy(`projects.${project.slug}.labels.decisions`, 'Key decisions')}</p>
+            <h2 data-edit={`projects.${project.slug}.headings.decisions`}>{copy(`projects.${project.slug}.headings.decisions`, 'The choices that shaped the work.')}</h2>
+          </>
+        )}
         <div class="decision-grid">
           {project.decisions?.map((item, i) => <article><span data-edit={`projects.${project.slug}.decisions.${i}.number`}>{copy(`projects.${project.slug}.decisions.${i}.number`, `0${i + 1}`)}</span><h3 data-edit={`projects.${project.slug}.decisions.${i}.title`}>{copy(`projects.${project.slug}.decisions.${i}.title`, item.title)}</h3><p data-edit={`projects.${project.slug}.decisions.${i}.body`}>{copy(`projects.${project.slug}.decisions.${i}.body`, item.body)}</p></article>)}
         </div>
@@ -92,10 +112,29 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         </section>
       )}
 
-      {project.gallery && project.gallery.length > 3 && (
-        <div class="case-gallery">
-          {project.gallery.slice(3).map((item, i) => <figure class:list={['case-media', i === 0 && 'case-media-wide', item.fit === 'landscape-crop' && 'case-media--landscape-crop']}><img src={item.src} alt={item.alt} loading="lazy" />{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + 3}.caption`}>{copy(`projects.${project.slug}.gallery.${i + 3}.caption`, item.caption)}</figcaption>}</figure>)}
+      {trailingGallery.length > 0 && (
+        <div class:list={['case-gallery', trailingGallery.length === 1 && 'case-gallery--single']}>
+          {trailingGallery.map((item, i) => <figure class:list={['case-media', (trailingGallery.length === 1 || (i === 0 && !galleryPairAfterDecisions)) && 'case-media-wide', item.fit === 'landscape-crop' && 'case-media--landscape-crop', item.treatment === 'paper' && 'case-media--paper', item.treatment === 'clean' && 'case-media--clean']}>{item.overlay ? <div class="case-media-composite"><img src={item.src} alt={item.alt} loading="lazy" /><img class="case-media-composite__overlay" src={item.overlay.src} alt={item.overlay.alt} loading="lazy" /></div> : <img src={item.src} alt={item.alt} loading="lazy" />}{item.caption && <figcaption data-edit={`projects.${project.slug}.gallery.${i + trailingGalleryStart}.caption`}>{copy(`projects.${project.slug}.gallery.${i + trailingGalleryStart}.caption`, item.caption)}</figcaption>}</figure>)}
         </div>
+      )}
+
+      {project.workflowShowcases && (
+        <section class="case-workflows">
+          {project.workflowShowcases.map((item, i) => (
+            <article class="case-workflow">
+              <div class="case-split-section">
+                <div>
+                  <p class="eyebrow" data-edit={`projects.${project.slug}.workflowShowcases.${i}.eyebrow`}>{copy(`projects.${project.slug}.workflowShowcases.${i}.eyebrow`, item.eyebrow)}</p>
+                  <h2 data-edit={`projects.${project.slug}.workflowShowcases.${i}.title`}>{copy(`projects.${project.slug}.workflowShowcases.${i}.title`, item.title)}</h2>
+                </div>
+                <p data-edit={`projects.${project.slug}.workflowShowcases.${i}.body`}>{copy(`projects.${project.slug}.workflowShowcases.${i}.body`, item.body)}</p>
+              </div>
+              <figure class="case-media case-workflow-media">
+                <img src={item.media} alt={item.alt} loading="lazy" />
+              </figure>
+            </article>
+          ))}
+        </section>
       )}
 
       {project.highlight && (

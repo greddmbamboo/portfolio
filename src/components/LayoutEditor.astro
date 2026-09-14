@@ -1,0 +1,337 @@
+<div class="layout-editor" data-layout-editor>
+  <button class="layout-editor__toggle" type="button" aria-pressed="false">Edit layout</button>
+  <div class="layout-editor__hover" aria-hidden="true"></div>
+  <div class="layout-editor__selected" aria-hidden="true"></div>
+  <aside class="layout-editor__panel" hidden aria-label="Layout inspector">
+    <header>
+      <div>
+        <span>Layout inspector</span>
+        <strong data-layout-label>Select an area</strong>
+      </div>
+      <button type="button" data-layout-close aria-label="Close layout editor">×</button>
+    </header>
+
+    <div class="layout-editor__meta">
+      <span data-layout-size></span>
+      <span data-layout-display></span>
+    </div>
+
+    <label class="layout-editor__scope">
+      <span>Apply to</span>
+      <select data-layout-scope>
+        <option value="instance">This instance</option>
+        <option value="shared">All matching components</option>
+      </select>
+    </label>
+
+    <fieldset>
+      <legend>Outside spacing</legend>
+      <div class="layout-editor__fields layout-editor__fields--four">
+        <label><span>Top</span><input data-property="margin-top" /></label>
+        <label><span>Right</span><input data-property="margin-right" /></label>
+        <label><span>Bottom</span><input data-property="margin-bottom" /></label>
+        <label><span>Left</span><input data-property="margin-left" /></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Inside spacing</legend>
+      <div class="layout-editor__fields layout-editor__fields--four">
+        <label><span>Top</span><input data-property="padding-top" /></label>
+        <label><span>Right</span><input data-property="padding-right" /></label>
+        <label><span>Bottom</span><input data-property="padding-bottom" /></label>
+        <label><span>Left</span><input data-property="padding-left" /></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Layout</legend>
+      <div class="layout-editor__fields layout-editor__fields--two">
+        <label><span>Row gap</span><input data-property="row-gap" /></label>
+        <label><span>Column gap</span><input data-property="column-gap" /></label>
+        <label><span>Align items</span><input data-property="align-items" /></label>
+        <label><span>Justify</span><input data-property="justify-content" /></label>
+        <label class="layout-editor__wide"><span>Grid columns</span><input data-property="grid-template-columns" /></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Size and type</legend>
+      <div class="layout-editor__fields layout-editor__fields--two">
+        <label><span>Width</span><input data-property="width" /></label>
+        <label><span>Max width</span><input data-property="max-width" /></label>
+        <label><span>Min height</span><input data-property="min-height" /></label>
+        <label><span>Max height</span><input data-property="max-height" /></label>
+        <label><span>Font size</span><input data-property="font-size" /></label>
+        <label><span>Line height</span><input data-property="line-height" /></label>
+      </div>
+    </fieldset>
+
+    <p class="layout-editor__hint">Enter a number for pixels, or use values such as <code>auto</code>, <code>12%</code>, or <code>clamp(…)</code>. Clear a field to remove its saved override.</p>
+    <p class="layout-editor__status" data-layout-status aria-live="polite">Changes save automatically.</p>
+  </aside>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-layout-editor]');
+  const toggle = root?.querySelector<HTMLButtonElement>('.layout-editor__toggle');
+  const panel = root?.querySelector<HTMLElement>('.layout-editor__panel');
+  const close = root?.querySelector<HTMLButtonElement>('[data-layout-close]');
+  const hoverBox = root?.querySelector<HTMLElement>('.layout-editor__hover');
+  const selectedBox = root?.querySelector<HTMLElement>('.layout-editor__selected');
+  const label = root?.querySelector<HTMLElement>('[data-layout-label]');
+  const size = root?.querySelector<HTMLElement>('[data-layout-size]');
+  const display = root?.querySelector<HTMLElement>('[data-layout-display]');
+  const scope = root?.querySelector<HTMLSelectElement>('[data-layout-scope]');
+  const sharedOption = scope?.querySelector<HTMLOptionElement>('option[value="shared"]');
+  const status = root?.querySelector<HTMLElement>('[data-layout-status]');
+  const inputs = Array.from(root?.querySelectorAll<HTMLInputElement>('[data-property]') ?? []);
+  const targetSelector = [
+    '.site-header', '.footer',
+    'main header', 'main section', 'main article', 'main figure', 'main nav',
+    'main h1', 'main h2', 'main h3', 'main p', 'main figcaption',
+    'main ol', 'main ul',
+    '.hero', '.work', '.leadership', '.about',
+    '.case-hero', '.case-opening', '.case-intro', '.case-body', '.case-summary',
+    '.case-section-intro', '.chapter-intro', '.case-media-block', '.case-meta',
+    '.case-list', '.case-highlight', '.case-stat-grid', '.case-stat-panel', '.case-next',
+    '.case-split-section', '.case-gallery', '.case-workflows', '.case-workflow',
+    '.decision-grid', '.outcome-stats', '.case-image-grid', '.media-pair',
+    '.hero-bottom', '.hero-proof', '.projects-grid', '.project-info',
+    '.principles', '.principle-number', '.about-grid', '.highlight-copy', '.highlight-stat', '.dark-section'
+  ].join(',');
+  const pixelProperties = new Set([
+    'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+    'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+    'row-gap', 'column-gap', 'width', 'max-width', 'min-height', 'max-height',
+    'font-size', 'line-height'
+  ]);
+  const utilityClasses = new Set([
+    'wrap', 'body-lede', 'section-pad', 'case-media', 'case-media-wide',
+    'case-media--clean', 'case-media--paper', 'case-media--unbounded',
+    'case-media--compact', 'case-media--medium'
+  ]);
+  let active = false;
+  let hovered: HTMLElement | null = null;
+  let selected: HTMLElement | null = null;
+  let sharedClass: string | null = null;
+  const saveTimers = new Map<string, number>();
+
+  function isEditorElement(value: EventTarget | null) {
+    return value instanceof HTMLElement && Boolean(value.closest('[data-layout-editor], [data-copy-editor]'));
+  }
+
+  function targetFromEvent(event: Event) {
+    for (const item of event.composedPath()) {
+      if (!(item instanceof HTMLElement)) continue;
+      if (isEditorElement(item)) return null;
+      if (item.matches(targetSelector)) return item;
+    }
+    return null;
+  }
+
+  function placeBox(box: HTMLElement | null | undefined, element: HTMLElement | null) {
+    if (!box) return;
+    if (!element || !active) {
+      box.hidden = true;
+      return;
+    }
+    const rect = element.getBoundingClientRect();
+    box.hidden = false;
+    box.style.left = `${rect.left}px`;
+    box.style.top = `${rect.top}px`;
+    box.style.width = `${rect.width}px`;
+    box.style.height = `${rect.height}px`;
+  }
+
+  function refreshBoxes() {
+    placeBox(hoverBox, hovered === selected ? null : hovered);
+    placeBox(selectedBox, selected);
+  }
+
+  function preferredSharedClass(element: HTMLElement) {
+    const classes = Array.from(element.classList);
+    return classes.find(name => !utilityClasses.has(name) && !name.endsWith('--single') && !name.endsWith('--media-follow')) ?? null;
+  }
+
+  function escapeAttribute(value: string) {
+    return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  function selectorSegment(element: HTMLElement) {
+    if (element.id) return `#${CSS.escape(element.id)}`;
+    const tag = element.tagName.toLowerCase();
+    const className = preferredSharedClass(element);
+    let segment = tag;
+    if (className) segment += `.${CSS.escape(className)}`;
+    const parent = element.parentElement;
+    if (parent) {
+      const sameTag = Array.from(parent.children).filter(child => child.tagName === element.tagName);
+      if (sameTag.length > 1) segment += `:nth-of-type(${sameTag.indexOf(element) + 1})`;
+    }
+    return segment;
+  }
+
+  function instanceSelector(element: HTMLElement) {
+    const parts: string[] = [];
+    let current: HTMLElement | null = element;
+    while (current && current !== document.body) {
+      parts.unshift(selectorSegment(current));
+      if (current.id === 'main') break;
+      current = current.parentElement;
+    }
+    return `[data-page="${escapeAttribute(location.pathname)}"] ${parts.join(' > ')}`;
+  }
+
+  function activeSelector() {
+    if (!selected) return '';
+    if (scope?.value === 'shared' && sharedClass) return `.${CSS.escape(sharedClass)}`;
+    return instanceSelector(selected);
+  }
+
+  function elementLabel(element: HTMLElement) {
+    const className = preferredSharedClass(element);
+    const tag = element.tagName.toLowerCase();
+    return className ? `${tag}.${className}` : tag;
+  }
+
+  function refreshInspector() {
+    if (!selected) return;
+    const styles = getComputedStyle(selected);
+    const rect = selected.getBoundingClientRect();
+    if (label) label.textContent = elementLabel(selected);
+    if (size) size.textContent = `${Math.round(rect.width)} × ${Math.round(rect.height)} px`;
+    if (display) display.textContent = styles.display;
+    sharedClass = preferredSharedClass(selected);
+    if (sharedOption) {
+      sharedOption.disabled = !sharedClass;
+      sharedOption.textContent = sharedClass ? `All .${sharedClass} components` : 'No shared component class';
+    }
+    if (!sharedClass && scope) scope.value = 'instance';
+    inputs.forEach(input => {
+      const property = input.dataset.property;
+      if (property) input.value = styles.getPropertyValue(property).trim();
+    });
+  }
+
+  function normalizeValue(property: string, raw: string) {
+    const value = raw.trim();
+    if (!value) return '';
+    if (pixelProperties.has(property) && /^-?\d+(?:\.\d+)?$/.test(value)) return value === '0' ? '0' : `${value}px`;
+    return value;
+  }
+
+  async function save(selector: string, property: string, value: string) {
+    if (status) status.textContent = 'Saving…';
+    const response = await fetch('/__layout-editor/save', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ selector, property, value })
+    });
+    if (status) status.textContent = response.ok ? 'Saved to the project.' : 'Could not save that change.';
+  }
+
+  function previewAndSave(input: HTMLInputElement) {
+    const property = input.dataset.property;
+    const selector = activeSelector();
+    if (!property || !selector) return;
+    const value = normalizeValue(property, input.value);
+    document.querySelectorAll<HTMLElement>(selector).forEach(element => {
+      if (value) element.style.setProperty(property, value, 'important');
+      else element.style.removeProperty(property);
+    });
+    refreshBoxes();
+    const timerKey = `${selector}|${property}`;
+    const existing = saveTimers.get(timerKey);
+    if (existing) window.clearTimeout(existing);
+    saveTimers.set(timerKey, window.setTimeout(() => save(selector, property, value), 300));
+  }
+
+  function selectElement(element: HTMLElement) {
+    selected = element;
+    hovered = null;
+    if (panel) panel.hidden = false;
+    refreshInspector();
+    refreshBoxes();
+  }
+
+  function setMode(next: boolean) {
+    active = next;
+    toggle?.setAttribute('aria-pressed', String(active));
+    if (toggle) toggle.textContent = active ? 'Finish layout' : 'Edit layout';
+    document.documentElement.classList.toggle('layout-editing', active);
+    if (active) {
+      window.dispatchEvent(new CustomEvent('layout-editor:active'));
+      if (status) status.textContent = 'Click an area to inspect it.';
+    } else {
+      hovered = null;
+      selected = null;
+      if (panel) panel.hidden = true;
+      refreshBoxes();
+    }
+  }
+
+  toggle?.addEventListener('click', () => setMode(!active));
+  close?.addEventListener('click', () => setMode(false));
+  window.addEventListener('copy-editor:active', () => setMode(false));
+  scope?.addEventListener('change', refreshInspector);
+  inputs.forEach(input => {
+    input.addEventListener('input', () => previewAndSave(input));
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') input.blur();
+    });
+  });
+  document.addEventListener('pointermove', event => {
+    if (!active) return;
+    hovered = targetFromEvent(event);
+    refreshBoxes();
+  }, true);
+  document.addEventListener('click', event => {
+    if (!active || isEditorElement(event.target)) return;
+    const target = targetFromEvent(event);
+    if (!target) return;
+    event.preventDefault();
+    event.stopPropagation();
+    selectElement(target);
+  }, true);
+  window.addEventListener('scroll', refreshBoxes, { passive: true });
+  window.addEventListener('resize', () => {
+    refreshBoxes();
+    if (selected) refreshInspector();
+  });
+</script>
+
+<style>
+  .layout-editor__toggle { position:fixed; z-index:92; right:134px; bottom:28px; appearance:none; border:0; padding:9px 13px; background:#171713; color:#f2f1ea; box-shadow:0 8px 30px rgba(0,0,0,.18); font:600 12px/1 inherit; cursor:pointer; }
+  .layout-editor__toggle:hover,.layout-editor__toggle[aria-pressed="true"] { background:#5c61ff; color:white; }
+  .layout-editor__hover,.layout-editor__selected { position:fixed; z-index:89; pointer-events:none; }
+  .layout-editor__hover { border:2px dashed #5c61ff; background:rgba(92,97,255,.06); }
+  .layout-editor__selected { z-index:90; border:3px solid #5c61ff; box-shadow:0 0 0 1px rgba(255,255,255,.8); }
+  .layout-editor__panel { position:fixed; z-index:93; right:20px; bottom:76px; width:min(360px,calc(100vw - 40px)); max-height:calc(100vh - 100px); overflow:auto; padding:18px; background:#171713; color:#f2f1ea; box-shadow:0 12px 44px rgba(0,0,0,.32); }
+  .layout-editor__panel header { display:flex; justify-content:space-between; gap:16px; align-items:start; padding-bottom:14px; border-bottom:1px solid #484842; }
+  .layout-editor__panel header span,.layout-editor__scope > span,.layout-editor__panel legend { display:block; color:#aaa; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+  .layout-editor__panel header strong { display:block; margin-top:4px; font-size:15px; font-weight:500; }
+  .layout-editor__panel header button { border:0; padding:0 3px; background:transparent; color:#f2f1ea; font:400 25px/1 inherit; cursor:pointer; }
+  .layout-editor__meta { display:flex; justify-content:space-between; gap:16px; margin:12px 0; color:#aaa; font-size:11px; }
+  .layout-editor__scope { display:block; margin-bottom:16px; }
+  .layout-editor__scope select { width:100%; margin-top:6px; padding:8px 9px; border:1px solid #5b5b55; border-radius:0; background:#292925; color:#f2f1ea; font:12px inherit; }
+  .layout-editor__panel fieldset { margin:0; padding:14px 0; border:0; border-top:1px solid #3d3d38; }
+  .layout-editor__panel legend { padding:0 0 9px; }
+  .layout-editor__fields { display:grid; gap:8px; }
+  .layout-editor__fields--four { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .layout-editor__fields--two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .layout-editor__fields label { min-width:0; }
+  .layout-editor__fields label span { display:block; margin-bottom:4px; color:#aaa; font-size:10px; }
+  .layout-editor__fields input { width:100%; min-width:0; padding:7px 8px; border:1px solid #52524d; border-radius:0; background:#292925; color:#f2f1ea; font:11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .layout-editor__fields input:focus,.layout-editor__scope select:focus { outline:2px solid #d9ff5f; outline-offset:1px; }
+  .layout-editor__wide { grid-column:1 / -1; }
+  .layout-editor__hint { margin:12px 0 0; color:#aaa; font-size:10px; line-height:1.45; }
+  .layout-editor__hint code { color:#d9ff5f; }
+  .layout-editor__status { min-height:16px; margin:10px 0 0; color:#d9ff5f; font-size:10px; }
+  :global(.layout-editing body) { cursor:crosshair; }
+  :global(.layout-editing [data-layout-editor]),:global(.layout-editing [data-layout-editor] *) { cursor:auto; }
+  @media (max-width:600px) {
+    .layout-editor__toggle { right:128px; }
+    .layout-editor__panel { right:10px; bottom:72px; width:calc(100vw - 20px); }
+  }
+</style>

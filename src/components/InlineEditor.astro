@@ -18,6 +18,7 @@
       element.contentEditable = active ? 'plaintext-only' : 'false';
       element.spellcheck = active;
     });
+    if (active) window.dispatchEvent(new CustomEvent('copy-editor:active'));
   }
 
   async function save(element: HTMLElement) {
@@ -39,6 +40,7 @@
   }
 
   button?.addEventListener('click', () => setMode(!active));
+  window.addEventListener('layout-editor:active', () => setMode(false));
   document.querySelectorAll<HTMLElement>('[data-edit]').forEach(element => {
     element.dataset.savedValue = element.innerText.trim();
     element.addEventListener('input', () => {

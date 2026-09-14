@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import InlineEditor from '../components/InlineEditor.astro';
+import LayoutEditor from '../components/LayoutEditor.astro';
+// @ts-expect-error Node's runtime is available to Astro, but this project omits Node type declarations.
+import { readFile } from 'node:fs/promises';
 interface Props { title?: string; description?: string; noindex?: boolean; }
 const {
   title = 'Gaige Redd — Product Design Leader',
@@ -8,6 +11,19 @@ const {
   noindex = false
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+declare const process: { cwd: () => string };
+const layoutEdits = JSON.parse(
+  await readFile(`${process.cwd()}/src/data/layout-edits.json`, 'utf8')
+) as Record<string, Record<string, string>>;
+const layoutOverrideCss = Object.entries(layoutEdits)
+  .map(([selector, declarations]) => {
+    const rules = Object.entries(declarations)
+      .map(([property, value]) => `${property}:${value}!important`)
+      .join(';');
+    return rules ? `${selector}{${rules}}` : '';
+  })
+  .filter(Boolean)
+  .join('\n');
 ---
 <!doctype html>
 <html lang="en">
@@ -27,9 +43,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {import.meta.env.DEV && <script is:inline src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>}
+    {layoutOverrideCss && <style is:inline set:html={layoutOverrideCss}></style>}
     <title>{title}</title>
   </head>
-  <body>
+  <body data-page={Astro.url.pathname}>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header wrap">
       <a class="wordmark" href="/" aria-label="Gaige Redd, home">
@@ -56,5 +73,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </div>
     </footer>
     {import.meta.env.DEV && <InlineEditor />}
+    {import.meta.env.DEV && <LayoutEditor />}
   </body>
 </html>
