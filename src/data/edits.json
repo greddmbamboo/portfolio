@@ -1,6 +1,6 @@
 {
-  "about.lede": "I’m a product designer with more than 15 years of experience, including over four years leading high-performing design teams.",
-  "leadership.headline": "Teams don't thrive unless trust and mutual respect underpin the work.",
+  "about.lede": "I’m a product designer with more than 15 years of experience, including nearly 5 years leading high-performing design teams.",
+  "leadership.headline": "Teams don't thrive unless trust and respect underpin the work.",
   "home.headline.open": "Turning",
   "leadership.2.title": "Kind + direct",
   "leadership.2.body": "Clear, direct communication keeps cross-functional teams working toward the same goal—and helps me understand what my team needs to succeed.",
@@ -13,7 +13,7 @@
   "projects.recognition-and-rewards.context": "Recognition was one of our most-requested features and a natural extension of BambooHR’s “better together” story. As the first HRIS to offer it natively, our goal went beyond competitive parity: create an exceptional experience for admins and employees.",
   "projects.recognition-and-rewards.adminChapter.body": "The Admin experience could not avoid complexity, but it could make that complexity navigable. I organized the system around clear decisions, progressive disclosure, and visible affordances so admins could understand what would happen before committing a change.",
   "projects.recognition-and-rewards.problem": "Recognition & Rewards had to serve two very different jobs. Admins needed control over eligibility, points, rewards, and automation. Employees needed a fast, natural way to recognize someone. The challenge was to minimize complexity on the admin side and remove friction from the employee side.",
-  "about.body": "My approach is pragmatic: understand the human problem, connect it to a meaningful business outcome, and give teams enough clarity to make strong decisions. Away from work, I’m usually spending time with my family and dogs, taking photos, or building something.",
+  "about.body": "I have a pragmatic approach to design—focus on human-centered design principles and results that drive business outcomes. Outside of work, I’m usually spending time with my family and our dogs. I love the desert, photography, and tinkering with 3D modeling/ printing. More than anything, I like making things. I’ve been fascinated by how things work for as long as I can remember, and few things are more satisfying than repairing something that would otherwise end up in the trash.",
   "projects.recognition-and-rewards.outcome": "Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.",
   "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction",
   "projects.product-page-architecture.headings.context": "Why it mattered.",
@@ -28,5 +28,6 @@
   "projects.ai-order-cloud.headings.context": "Why it mattered.",
   "projects.ai-order-cloud.approach.0.body": "I brought executives, department leaders, and key stakeholders together to identify where AI could create credible customer and business value. The workshop gave design a strategic role early enough to influence the premise, not just the interface.",
   "projects.ai-order-cloud.decisionIntro.headline": "The principles that shaped the work.",
-  "projects.ai-order-cloud.headings.approach": "Turn alignment into action."
+  "projects.ai-order-cloud.headings.approach": "Turn alignment into action.",
+  "about.headline": "Curious by nature."
 }

@@ -6,6 +6,9 @@
     "font-size": "13px"
   },
   "[data-page=\"/\"] #main > section.hero:nth-of-type(1) > div.hero-bottom": {
-    "row-gap": "normal"
+    "row-gap": "24px"
+  },
+  "[data-page=\"/\"] #main > section.hero:nth-of-type(1) > h1.hero-statement": {
+    "margin-top": "20px"
   }
 }
