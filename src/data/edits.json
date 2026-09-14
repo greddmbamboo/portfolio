@@ -32,5 +32,9 @@
   "about.headline": "Curious by nature.",
   "projects.product-page-architecture.draft.exploration.title": "Keep momentum without removing the choices.",
   "projects.product-page-architecture.draft.promotions.title": "Every offer competed with the primary job to be done.",
-  "projects.product-page-architecture.draft.launch.summary": "We launched the A/B test with only 10% of traffic to the new experience, then 50% and finally 100%. After four weeks live, the results confirmed our hypothesis: customers didn't need fewer choices; they just needed them in the right order."
+  "projects.product-page-architecture.draft.launch.summary": "We launched the A/B test with only 10% of traffic to the new experience, then 50% and finally 100%. After four weeks live, the results confirmed our hypothesis: customers didn't need fewer choices; they just needed them in the right order.",
+  "projects.product-page-architecture.draft.exploration.earlyCaptionLead": "Pre-Redesign.",
+  "projects.product-page-architecture.draft.exploration.earlyCaptionBody": "This is example is purely for comparison with the redesigned PDP. The length of the page increase significantly, adding to the overall cognitive load.",
+  "projects.product-page-architecture.draft.exploration.postCartCaptionLead": "Redesigned PDP",
+  "projects.product-page-architecture.draft.exploration.postCartCaptionBody": "While it was a step forward in regard to the UI, this new layout introduced more complexity and the cognative load started to drag conversion."
 }
