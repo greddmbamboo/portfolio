@@ -8,13 +8,18 @@
         <span>Layout inspector</span>
         <strong data-layout-label>Select an area</strong>
       </div>
-      <button type="button" data-layout-close aria-label="Close layout editor">×</button>
+      <div class="layout-editor__actions">
+        <button type="button" data-layout-up aria-label="Select parent element" title="Select parent" disabled>↑</button>
+        <button type="button" data-layout-close aria-label="Close layout editor">×</button>
+      </div>
     </header>
 
     <div class="layout-editor__meta">
       <span data-layout-size></span>
       <span data-layout-display></span>
     </div>
+
+    <nav class="layout-editor__breadcrumb" data-layout-breadcrumb aria-label="Selected element path" hidden></nav>
 
     <label class="layout-editor__scope">
       <span>Apply to</span>
@@ -77,8 +82,10 @@
   const toggle = root?.querySelector<HTMLButtonElement>('.layout-editor__toggle');
   const panel = root?.querySelector<HTMLElement>('.layout-editor__panel');
   const close = root?.querySelector<HTMLButtonElement>('[data-layout-close]');
+  const up = root?.querySelector<HTMLButtonElement>('[data-layout-up]');
   const hoverBox = root?.querySelector<HTMLElement>('.layout-editor__hover');
   const selectedBox = root?.querySelector<HTMLElement>('.layout-editor__selected');
+  const breadcrumb = root?.querySelector<HTMLElement>('[data-layout-breadcrumb]');
   const label = root?.querySelector<HTMLElement>('[data-layout-label]');
   const size = root?.querySelector<HTMLElement>('[data-layout-size]');
   const display = root?.querySelector<HTMLElement>('[data-layout-display]');
@@ -86,11 +93,9 @@
   const sharedOption = scope?.querySelector<HTMLOptionElement>('option[value="shared"]');
   const status = root?.querySelector<HTMLElement>('[data-layout-status]');
   const inputs = Array.from(root?.querySelectorAll<HTMLInputElement>('[data-property]') ?? []);
-  const targetSelector = [
+  const containerSelector = [
     '.site-header', '.footer',
     'main header', 'main section', 'main article', 'main figure', 'main nav',
-    'main h1', 'main h2', 'main h3', 'main p', 'main figcaption',
-    'main ol', 'main ul',
     '.hero', '.work', '.leadership', '.about',
     '.case-hero', '.case-opening', '.case-intro', '.case-body', '.case-summary',
     '.case-section-intro', '.chapter-intro', '.case-media-block', '.case-meta',
@@ -114,6 +119,7 @@
   let active = false;
   let hovered: HTMLElement | null = null;
   let selected: HTMLElement | null = null;
+  let selectionTrail: HTMLElement[] = [];
   let sharedClass: string | null = null;
   const saveTimers = new Map<string, number>();
 
@@ -121,13 +127,49 @@
     return value instanceof HTMLElement && Boolean(value.closest('[data-layout-editor], [data-copy-editor]'));
   }
 
-  function targetFromEvent(event: Event) {
+  function eventElement(event: Event) {
     for (const item of event.composedPath()) {
       if (!(item instanceof HTMLElement)) continue;
       if (isEditorElement(item)) return null;
-      if (item.matches(targetSelector)) return item;
+      return item;
     }
     return null;
+  }
+
+  function nearestContainerFromEvent(event: Event) {
+    for (const item of event.composedPath()) {
+      if (!(item instanceof HTMLElement)) continue;
+      if (isEditorElement(item)) return null;
+      if (item.matches(containerSelector)) return item;
+    }
+    return null;
+  }
+
+  function directChildContaining(parent: HTMLElement, descendant: HTMLElement) {
+    if (parent === descendant) return parent;
+    let current = descendant;
+    while (current.parentElement && current.parentElement !== parent) current = current.parentElement;
+    return current.parentElement === parent ? current : parent;
+  }
+
+  function candidateFromEvent(event: Event) {
+    const eventTarget = eventElement(event);
+    if (!eventTarget) return null;
+
+    for (let index = selectionTrail.length - 1; index >= 0; index -= 1) {
+      const ancestor = selectionTrail[index];
+      if (!ancestor.contains(eventTarget)) continue;
+      const child = directChildContaining(ancestor, eventTarget);
+      return {
+        element: child,
+        trail: child === ancestor
+          ? selectionTrail.slice(0, index + 1)
+          : [...selectionTrail.slice(0, index + 1), child]
+      };
+    }
+
+    const container = nearestContainerFromEvent(event);
+    return container ? { element: container, trail: [container] } : null;
   }
 
   function placeBox(box: HTMLElement | null | undefined, element: HTMLElement | null) {
@@ -195,6 +237,36 @@
     return className ? `${tag}.${className}` : tag;
   }
 
+  function selectTrail(index: number) {
+    selectionTrail = selectionTrail.slice(0, index + 1);
+    selected = selectionTrail.at(-1) ?? null;
+    hovered = null;
+    if (selected) refreshInspector();
+    refreshBreadcrumb();
+    refreshBoxes();
+  }
+
+  function refreshBreadcrumb() {
+    if (!breadcrumb) return;
+    breadcrumb.replaceChildren();
+    breadcrumb.hidden = selectionTrail.length === 0;
+    selectionTrail.forEach((element, index) => {
+      if (index > 0) {
+        const separator = document.createElement('span');
+        separator.textContent = '›';
+        separator.setAttribute('aria-hidden', 'true');
+        breadcrumb.append(separator);
+      }
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = elementLabel(element);
+      if (index === selectionTrail.length - 1) button.setAttribute('aria-current', 'page');
+      button.addEventListener('click', () => selectTrail(index));
+      breadcrumb.append(button);
+    });
+    if (up) up.disabled = selectionTrail.length < 2;
+  }
+
   function refreshInspector() {
     if (!selected) return;
     const styles = getComputedStyle(selected);
@@ -247,12 +319,17 @@
     saveTimers.set(timerKey, window.setTimeout(() => save(selector, property, value), 300));
   }
 
-  function selectElement(element: HTMLElement) {
+  function selectElement(element: HTMLElement, trail: HTMLElement[]) {
     selected = element;
+    selectionTrail = trail;
     hovered = null;
     if (panel) panel.hidden = false;
     refreshInspector();
+    refreshBreadcrumb();
     refreshBoxes();
+    if (status) status.textContent = element.children.length
+      ? 'Selected. Click an item inside it to drill down.'
+      : 'Selected element.';
   }
 
   function setMode(next: boolean) {
@@ -266,13 +343,18 @@
     } else {
       hovered = null;
       selected = null;
+      selectionTrail = [];
       if (panel) panel.hidden = true;
+      refreshBreadcrumb();
       refreshBoxes();
     }
   }
 
   toggle?.addEventListener('click', () => setMode(!active));
   close?.addEventListener('click', () => setMode(false));
+  up?.addEventListener('click', () => {
+    if (selectionTrail.length > 1) selectTrail(selectionTrail.length - 2);
+  });
   window.addEventListener('copy-editor:active', () => setMode(false));
   scope?.addEventListener('change', refreshInspector);
   inputs.forEach(input => {
@@ -283,16 +365,16 @@
   });
   document.addEventListener('pointermove', event => {
     if (!active) return;
-    hovered = targetFromEvent(event);
+    hovered = candidateFromEvent(event)?.element ?? null;
     refreshBoxes();
   }, true);
   document.addEventListener('click', event => {
     if (!active || isEditorElement(event.target)) return;
-    const target = targetFromEvent(event);
-    if (!target) return;
+    const candidate = candidateFromEvent(event);
+    if (!candidate) return;
     event.preventDefault();
     event.stopPropagation();
-    selectElement(target);
+    selectElement(candidate.element, candidate.trail);
   }, true);
   window.addEventListener('scroll', refreshBoxes, { passive: true });
   window.addEventListener('resize', () => {
@@ -311,8 +393,15 @@
   .layout-editor__panel header { display:flex; justify-content:space-between; gap:16px; align-items:start; padding-bottom:14px; border-bottom:1px solid #484842; }
   .layout-editor__panel header span,.layout-editor__scope > span,.layout-editor__panel legend { display:block; color:#aaa; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
   .layout-editor__panel header strong { display:block; margin-top:4px; font-size:15px; font-weight:500; }
+  .layout-editor__actions { display:flex; gap:8px; align-items:center; }
   .layout-editor__panel header button { border:0; padding:0 3px; background:transparent; color:#f2f1ea; font:400 25px/1 inherit; cursor:pointer; }
+  .layout-editor__panel header button[data-layout-up] { font-size:18px; }
+  .layout-editor__panel header button:disabled { opacity:.3; cursor:default; }
   .layout-editor__meta { display:flex; justify-content:space-between; gap:16px; margin:12px 0; color:#aaa; font-size:11px; }
+  .layout-editor__breadcrumb { display:flex; flex-wrap:wrap; gap:5px; align-items:center; margin:-2px 0 16px; color:#77776f; font-size:10px; }
+  .layout-editor__breadcrumb[hidden] { display:none; }
+  .layout-editor__breadcrumb button { border:0; border-bottom:1px solid #66665f; padding:2px 0; background:transparent; color:#b7b7ae; font:10px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; cursor:pointer; }
+  .layout-editor__breadcrumb button[aria-current="page"] { border-bottom-color:#d9ff5f; color:#d9ff5f; }
   .layout-editor__scope { display:block; margin-bottom:16px; }
   .layout-editor__scope select { width:100%; margin-top:6px; padding:8px 9px; border:1px solid #5b5b55; border-radius:0; background:#292925; color:#f2f1ea; font:12px inherit; }
   .layout-editor__panel fieldset { margin:0; padding:14px 0; border:0; border-top:1px solid #3d3d38; }

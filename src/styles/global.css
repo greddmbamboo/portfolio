@@ -230,8 +230,10 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .case-gallery--single { grid-template-columns:1fr; }
 .case-workflows { display:flex; flex-direction:column; gap:122px; }
 .case-workflow { display:flex; flex-direction:column; gap:80px; }
-.case-workflow-media { width:min(1000px,100%); margin-inline:auto; }
+.case-workflow-media { position:relative; width:min(1000px,100%); margin-inline:auto; }
+.case-workflow-media::after { content:""; position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 0 1px #8f8f89; }
 .case-workflow-media img { height:auto; max-height:none; }
+.case-workflow-media--crop-top { max-height:var(--workflow-crop-height); overflow:hidden; }
 .case-highlight { display:grid; grid-template-columns:1.35fr .65fr; gap:9%; align-items:end; margin-top:120px; padding:70px!important; background:var(--ink); border-bottom:0!important; color:var(--paper); }
 .case-highlight .highlight-copy h2 { max-width:690px; margin-bottom:30px; }
 .case-highlight .highlight-copy > p:last-child { max-width:670px; margin:0; font-size:18px; line-height:1.55; }

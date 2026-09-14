@@ -6,7 +6,7 @@ export type Project = {
   approach?: { title: string; body: string }[];
   decisions?: { title: string; body: string }[];
   decisionIntro?: { headline: string; body: string };
-  workflowShowcases?: { eyebrow: string; title: string; body: string; media: string; alt: string }[];
+  workflowShowcases?: { eyebrow: string; title: string; body: string; media: string; alt: string; cropHeight?: number }[];
   outcomes?: { value: string; label: string }[]; outcomeCopy?: string; evidenceNote?: string;
   highlight?: { eyebrow: string; title: string; body: string; value: string; label: string };
   adminChapter?: { eyebrow: string; title: string; body: string };
@@ -107,7 +107,8 @@ export const projects: Project[] = [
         title: 'Split Shipments Workflow',
         body: 'Shipments fulfilled from two or more locations cost businesses money through added shipping fees and handling time. Supply-chain managers now had critical data instantly at their fingertips and could set up fulfillment rules in minutes instead of weeks.',
         media: '/assets/work/fabric/description-analyzer.gif',
-        alt: 'Prototype of an AI-assisted split-shipment workflow'
+        alt: 'Prototype of an AI-assisted split-shipment workflow',
+        cropHeight: 700
       }
     ],
     outcomes: [

@@ -136,7 +136,10 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
                 </div>
                 <p data-edit={`projects.${project.slug}.workflowShowcases.${i}.body`}>{copy(`projects.${project.slug}.workflowShowcases.${i}.body`, item.body)}</p>
               </div>
-              <figure class="case-media case-workflow-media">
+              <figure
+                class:list={['case-media', 'case-workflow-media', item.cropHeight && 'case-workflow-media--crop-top']}
+                style={item.cropHeight ? `--workflow-crop-height:${item.cropHeight}px` : undefined}
+              >
                 <img src={item.media} alt={item.alt} loading="lazy" />
               </figure>
             </article>

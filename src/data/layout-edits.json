@@ -11,13 +11,23 @@
   "[data-page=\"/\"] #main > section.hero:nth-of-type(1) > h1.hero-statement": {
     "margin-top": "20px"
   },
-  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > div.case-body > section.case-split-section:nth-of-type(3)": {
-    "column-gap": "8%"
-  },
   ".chapter-intro": {
     "column-gap": "8%"
   },
   ".case-split-section": {
-    "column-gap": "2%"
+    "column-gap": "8%"
+  },
+  "[data-page=\"/work/ai-order-cloud/\"] #main > article.case-study > div.case-body > section.outcome:nth-of-type(7)": {
+    "column-gap": "normal"
+  },
+  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > div.case-body > section.case-stat-panel:nth-of-type(11)": {
+    "column-gap": "normal"
+  },
+  "[data-page=\"/work/ai-order-cloud/\"] #main > article.case-study > div.case-body > section.outcome:nth-of-type(7) > div.outcome-stats": {
+    "column-gap": "32px"
+  },
+  "[data-page=\"/work/ai-order-cloud/\"] #main > article.case-study > div.case-body > section.outcome:nth-of-type(7) > div.outcome-stats > p:nth-of-type(2) > span": {
+    "width": "170px",
+    "max-width": "170px"
   }
 }
