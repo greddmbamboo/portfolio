@@ -41,6 +41,13 @@
 
   button?.addEventListener('click', () => setMode(!active));
   window.addEventListener('layout-editor:active', () => setMode(false));
+  document.addEventListener('click', event => {
+    if (!active || !(event.target instanceof HTMLElement)) return;
+    if (event.target.closest('[data-copy-editor], [data-layout-editor]')) return;
+    if (!event.target.closest('a, button')) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
   document.querySelectorAll<HTMLElement>('[data-edit]').forEach(element => {
     element.dataset.savedValue = element.innerText.trim();
     element.addEventListener('input', () => {
