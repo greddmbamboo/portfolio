@@ -29,5 +29,25 @@
   "[data-page=\"/work/ai-order-cloud/\"] #main > article.case-study > div.case-body > section.outcome:nth-of-type(7) > div.outcome-stats > p:nth-of-type(2) > span": {
     "width": "170px",
     "max-width": "170px"
+  },
+  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > div.case-body > section.case-split-section:nth-of-type(8)": {
+    "padding-bottom": "40px"
+  },
+  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > div.case-body > section.case-split-section:nth-of-type(9)": {
+    "padding-bottom": "100px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.bamboohr-figma-section:nth-of-type(7)": {
+    "padding-top": "0",
+    "margin-top": "40px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.bamboohr-figma-section:nth-of-type(7) > div.bamboohr-figma-canvas > p.bamboohr-figma-caption": {
+    "margin-top": "0px",
+    "padding-top": "0px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.bamboohr-figma-section:nth-of-type(7) > div.bamboohr-figma-canvas > img.bamboohr-figma-modal:nth-of-type(3)": {
+    "padding-bottom": "0"
+  },
+  "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > header.case-hero > p.case-summary:nth-of-type(2)": {
+    "padding-right": "150px"
   }
 }

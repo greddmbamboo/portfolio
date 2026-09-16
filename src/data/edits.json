@@ -1,6 +1,6 @@
 {
   "about.lede": "I’m a product designer with more than 15 years of experience, including nearly 5 years leading high-performing design teams.",
-  "leadership.headline": "Teams don't thrive unless trust and respect underpin the work.",
+  "leadership.headline": "Teams don't thrive unless trust underpins the work.",
   "home.headline.open": "Turning",
   "leadership.2.title": "Kind + direct",
   "leadership.2.body": "Clear, direct communication keeps cross-functional teams working toward the same goal—and helps me understand what my team needs to succeed.",
@@ -12,12 +12,12 @@
   "projects.recognition-and-rewards.headings.context": "Why it mattered.",
   "projects.recognition-and-rewards.context": "Recognition was one of our most-requested features and a natural extension of BambooHR’s “better together” story. As the first HRIS to offer it natively, our goal went beyond competitive parity: create an exceptional experience for admins and employees.",
   "projects.recognition-and-rewards.adminChapter.body": "I couldn’t remove all of the complexity from the admin experience, but I could make it easier to navigate. I organized the system around clear decisions, introduced complexity only when it was needed, and showed admins what would happen before they committed to a change.",
-  "projects.recognition-and-rewards.problem": "Recognition & Rewards had to serve two very different jobs. Admins needed control over eligibility, points, rewards, and automation. Employees needed a fast, natural way to recognize someone. The challenge was to minimize complexity on the admin side and remove friction from the employee side.",
+  "projects.recognition-and-rewards.problem": "Recognition & Rewards served two distinct personas: admins needed easy setup and granular control, while employees needed a frictionless way to recognize peers. With participation averaging 60%, we knew the key better engagement depended on meeting employees where they already worked.",
   "about.body": "I have a pragmatic approach to design—focus on human-centered design principles and results that drive business outcomes. Outside of work, I’m usually spending time with my family and our dogs. I love the desert, photography, and tinkering with 3D modeling/ printing. More than anything, I like making things. I’ve been fascinated by how things work for as long as I can remember, and few things are more satisfying than repairing something that would otherwise end up in the trash.",
   "projects.recognition-and-rewards.outcome": "Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.",
   "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction",
   "projects.product-page-architecture.headings.context": "Why it mattered.",
-  "projects.product-page-architecture.draft.launch.title": "Hand-off isn't the end.",
+  "projects.product-page-architecture.draft.launch.title": "The hand-off isn't the end.",
   "projects.product-page-architecture.draft.lessons.title": "Better questions provide better answers.",
   "projects.product-page-architecture.draft.launch.conclusion": "After roughly four weeks live, the results confirmed the hypothesis: customers didn't need fewer opportunities; they just needed them in the right order.",
   "projects.product-page-architecture.draft.research.body": "After a redesign by an external agency, upgrades and cross-sells had flattened. Site data showed the decline, but not the cause. I paired quantitative data with user sessions and heat maps from Quantum Metric. The synthesis revealed a clear pattern of hesitation and second guessing with each additional decision we put on the PDP.",
@@ -36,5 +36,8 @@
   "projects.product-page-architecture.draft.exploration.earlyCaptionLead": "Pre-Redesign.",
   "projects.product-page-architecture.draft.exploration.earlyCaptionBody": "This is example is purely for comparison with the redesigned PDP. The length of the page increase significantly, adding to the overall cognitive load.",
   "projects.product-page-architecture.draft.exploration.postCartCaptionLead": "Redesigned PDP",
-  "projects.product-page-architecture.draft.exploration.postCartCaptionBody": "While it was a step forward in regard to the UI, this new layout introduced more complexity and the cognative load started to drag conversion."
+  "projects.product-page-architecture.draft.exploration.postCartCaptionBody": "While it was a step forward in regard to the UI, this new layout introduced more complexity and the cognative load started to drag conversion.",
+  "projects.product-page-architecture.draft.headline": "Retaining upsell opportunities without the cognitive overhead.",
+  "projects.ai-order-cloud.workflowShowcases.0.eyebrow": "PIM USER FLOW DEMO (WIREFRAME)",
+  "projects.recognition-and-rewards.adminChapter.title": "Making a complex setup effortless."
 }
