@@ -171,6 +171,13 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .footer-meta { display:flex; justify-content:space-between; align-items:end; color:var(--muted); font-size:12px; }.footer-meta p { margin:0; }
 .case-hero { padding:90px 0 80px; }.back-link { display:inline-block; font-size:13px; margin-bottom:100px; border-bottom:1px solid; }
 .case-study-locked { overflow:hidden; }
+.bamboohr-figma-section { margin-top:var(--case-section-space-compact); }
+.bamboohr-figma-canvas { position:relative; width:min(1112px, 100%); margin-inline:auto; background:#fcfbf3; }
+.bamboohr-figma-canvas > img { display:block; width:100%; height:auto; }
+.bamboohr-figma-caption { position:absolute; left:8.7%; top:calc(77.9% + 24px); width:36.9%; margin:0; color:var(--muted); font-size:clamp(11px,1.2vw,13px); line-height:1.5; }
+@media (max-width: 720px) {
+  .bamboohr-figma-section { margin-top:var(--case-section-space-compact); }
+}
 .case-gate[hidden] { display:none; }
 .case-gate { position:fixed; z-index:10000; inset:0; display:grid; place-items:center; padding:24px; background:var(--ink); color:var(--paper); }
 .case-gate-card { width:min(650px,100%); border-top:6px solid #f2d21b; padding-top:38px; }
