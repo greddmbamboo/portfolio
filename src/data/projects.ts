@@ -25,7 +25,7 @@ export const projects: Project[] = [
     cover: '/assets/work/bamboohr/cover-illustrated.png',
     coverAlt: 'Illustrated BambooHR Recognition feed displayed on a desktop monitor',
     headline: 'Powerful enough for admins. Simple enough for everyone else.',
-    problem: 'Recognition & Rewards served two distinct groups. Admins needed a clear way to configure a flexible program. On the employee side, the challenge was participation: how could we make recognition a natural part of the workday instead of another destination people had to remember to visit? With industry participation averaging around 60%, we focused on reaching people where they worked and making each recognition easier to start.',
+    problem: 'The program had to support flexible rules without leaving admins unsure what those rules would do. But even a well-run program would fall flat if employees rarely posted. We needed to make setup easier to understand and recognition easier to start.',
     context: 'Recognition was becoming table stakes in HR software. Matching the category was not enough; the product also had to make consequential setup decisions understandable and give employees a reason to participate once the program was live.',
     role: 'I led product design for the admin setup and employee recognition flow, including the point-allocation model. I also helped shape the Slack integration and suggestion agent, working with product, engineering, research, and customers through launch.',
     adminChapter: {
