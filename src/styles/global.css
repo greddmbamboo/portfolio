@@ -224,7 +224,7 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .case-progression-stages h3 { margin:35px 0 18px; font-size:35px; line-height:1; font-weight:500; letter-spacing:-.04em; }
 .case-progression-detail { min-height:4.35em; margin:0; font-size:17px; line-height:1.45; }
 .case-progression-audience { margin:24px 0 12px; color:var(--muted); font-size:12px; line-height:1.4; }
-.case-progression-result { margin:0; font:italic 48px/.9 var(--serif); letter-spacing:-.035em; }
+.case-progression-result { margin:0; font:italic 48px/.9 var(--serif); letter-spacing:1px; }
 .case-progression-note { max-width:750px; margin:44px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
 .case-progression-period,.case-progression-audience,.case-progression-note { color:#b7b7ae; }
 .case-list { list-style:none; padding:0; margin:80px 0 0; }.case-list li { display:grid; grid-template-columns:100px 1fr; border-top:1px solid var(--line); padding:22px 0 52px; }.case-list span,.decision-grid span { font-size:12px; }.case-list h3 { margin:0 0 12px; font-size:26px; font-weight:500; letter-spacing:-.03em; }.case-list p { margin:0; font-size:19px; line-height:1.55; max-width:730px; color:var(--muted); }
