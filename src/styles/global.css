@@ -178,6 +178,7 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .bamboohr-figma-caption { position:absolute; left:8.7%; top:calc(77.9% + 24px); width:36.9%; margin:0; color:var(--muted); font-size:clamp(11px,1.2vw,13px); line-height:1.5; }
 @media (max-width: 720px) {
   .bamboohr-figma-section { margin-top:var(--case-section-space-compact); }
+  .bamboohr-figma-caption { position:static; width:100%; margin-top:12px; font-size:13px; }
 }
 .case-gate[hidden] { display:none; }
 .case-gate { position:fixed; z-index:10000; inset:0; display:grid; place-items:center; padding:24px; background:var(--ink); color:var(--paper); }
@@ -207,10 +208,25 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .chapter-intro--spaced { margin-top:40px; }
 .case-body .case-intro:has(+ .chapter-intro--spaced) { border-bottom:0; }
 .case-body section:has(+ .chapter-intro--magenta) { border-bottom:0; }
+.case-body .case-split-section:has(+ .bamboohr-figma-section) { border-bottom:0; }
 .chapter-intro--magenta { border-top-color:#ec168c; }
 .chapter-intro--accent-label .eyebrow { color:var(--eyebrow-on-dark); }
 .chapter-intro--followed-by-media + .case-media { margin-top:80px; }
 .chapter-intro--full-bleed,.case-stat-panel { margin-inline:calc(var(--case-bleed) * -1); }
+.case-body .case-progression { padding:72px var(--case-inset); border-bottom:0; background:var(--ink); color:var(--paper); }
+.case-progression .eyebrow { color:var(--eyebrow-on-dark); }
+.case-progression h2 { max-width:800px; }
+.case-progression-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; padding:0; margin:80px 0 0; list-style:none; }
+.case-progression-stages li { display:flex; flex-direction:column; border-top:4px solid #00b8d4; padding-top:18px; }
+.case-progression-stages li:nth-child(2) { border-top-color:#ec168c; }
+.case-progression-stages li:nth-child(3) { border-top-color:#f2d21b; }
+.case-progression-period { margin:0; color:var(--muted); font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.case-progression-stages h3 { margin:35px 0 18px; font-size:35px; line-height:1; font-weight:500; letter-spacing:-.04em; }
+.case-progression-detail { min-height:4.35em; margin:0; font-size:17px; line-height:1.45; }
+.case-progression-audience { margin:24px 0 12px; color:var(--muted); font-size:12px; line-height:1.4; }
+.case-progression-result { margin:0; font:italic 48px/.9 var(--serif); letter-spacing:-.035em; }
+.case-progression-note { max-width:750px; margin:44px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
+.case-progression-period,.case-progression-audience,.case-progression-note { color:#b7b7ae; }
 .case-list { list-style:none; padding:0; margin:80px 0 0; }.case-list li { display:grid; grid-template-columns:100px 1fr; border-top:1px solid var(--line); padding:22px 0 52px; }.case-list span,.decision-grid span { font-size:12px; }.case-list h3 { margin:0 0 12px; font-size:26px; font-weight:500; letter-spacing:-.03em; }.case-list p { margin:0; font-size:19px; line-height:1.55; max-width:730px; color:var(--muted); }
 .case-list > li > span { padding-top:9px; line-height:1; }
 .decision-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:70px; }
@@ -312,5 +328,9 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
   .case-media--compact figcaption { width:100%; }
   .case-workflows { gap:90px; }
   .case-workflow { gap:36px; }
+  .case-body .case-progression { padding:52px 24px; }
+  .case-progression-stages { grid-template-columns:1fr; gap:52px; margin-top:55px; }
+  .case-progression-stages li { display:block; }
+  .case-progression-stages h3 { margin-top:24px; }
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.art-shape,.arrow,.wordmark svg{transition:none!important}.hero h1{animation:none!important;text-shadow:none}.wordmark svg{filter:none}}

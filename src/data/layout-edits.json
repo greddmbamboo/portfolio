@@ -49,5 +49,20 @@
   },
   "[data-page=\"/work/product-page-architecture/\"] #main > article.case-study > header.case-hero > p.case-summary:nth-of-type(2)": {
     "padding-right": "150px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section:nth-of-type(5)": {
+    "padding-bottom": "80px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.case-progression:nth-of-type(7) > ol.case-progression-stages": {
+    "column-gap": "32px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.bamboohr-figma-section:nth-of-type(8)": {
+    "margin-top": "115px",
+    "padding-top": "0px"
+  },
+  "[data-page=\"/work/recognition-and-rewards/\"] #main > article.case-study > div.case-body > section.case-split-section:nth-of-type(7)": {
+    "padding-bottom": "0",
+    "padding-top": "200x",
+    "margin-top": "100px"
   }
 }

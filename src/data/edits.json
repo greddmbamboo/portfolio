@@ -10,12 +10,12 @@
   "projects.recognition-and-rewards.employeeChapter.eyebrow": "PART TWO / THE EMPLOYEE EXPERIENCE",
   "projects.recognition-and-rewards.adminChapter.eyebrow": "PART ONE / THE ADMIN EXPERIENCE",
   "projects.recognition-and-rewards.headings.context": "Why it mattered.",
-  "projects.recognition-and-rewards.context": "Recognition was one of our most-requested features and a natural extension of BambooHR’s “better together” story. As the first HRIS to offer it natively, our goal went beyond competitive parity: create an exceptional experience for admins and employees.",
+  "projects.recognition-and-rewards.context": "Recognition was one of our most-requested features and a natural extension of BambooHR’s “better together” story. As the first HRIS to offer it natively, our goal went beyond simple parity: we set out to create an exceptional experience for both admins and employees.",
   "projects.recognition-and-rewards.adminChapter.body": "I couldn’t remove all of the complexity from the admin experience, but I could make it easier to navigate. I organized the system around clear decisions, introduced complexity only when it was needed, and showed admins what would happen before they committed to a change.",
-  "projects.recognition-and-rewards.problem": "Recognition & Rewards served two distinct personas: admins needed easy setup and granular control, while employees needed a frictionless way to recognize peers. With participation averaging 60%, we knew the key better engagement depended on meeting employees where they already worked.",
+  "projects.recognition-and-rewards.problem": "Recognition & Rewards served two distinct groups. Admins needed a clear way to configure a flexible program. On the employee side, the challenge was participation: how could we make recognition a natural part of the workday instead of another destination people had to remember to visit? With industry participation averaging around 60%, we focused on reaching people where they worked and making each recognition easier to start.",
   "about.body": "I have a pragmatic approach to design—focus on human-centered design principles and results that drive business outcomes. Outside of work, I’m usually spending time with my family and our dogs. I love the desert, photography, and tinkering with 3D modeling/ printing. More than anything, I like making things. I’ve been fascinated by how things work for as long as I can remember, and few things are more satisfying than repairing something that would otherwise end up in the trash.",
   "projects.recognition-and-rewards.outcome": "Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.",
-  "projects.recognition-and-rewards.highlight.title": "Timely, relevant suggestions removed friction",
+  "projects.recognition-and-rewards.highlight.title": "The agent has entered the chat.",
   "projects.product-page-architecture.headings.context": "Why it mattered.",
   "projects.product-page-architecture.draft.launch.title": "The hand-off isn't the end.",
   "projects.product-page-architecture.draft.lessons.title": "Better questions provide better answers.",
@@ -39,5 +39,9 @@
   "projects.product-page-architecture.draft.exploration.postCartCaptionBody": "While it was a step forward in regard to the UI, this new layout introduced more complexity and the cognative load started to drag conversion.",
   "projects.product-page-architecture.draft.headline": "Retaining upsell opportunities without the cognitive overhead.",
   "projects.ai-order-cloud.workflowShowcases.0.eyebrow": "PIM USER FLOW DEMO (WIREFRAME)",
-  "projects.recognition-and-rewards.adminChapter.title": "Making a complex setup effortless."
+  "projects.recognition-and-rewards.adminChapter.title": "Making a complex setup effortless.",
+  "projects.recognition-and-rewards.highlight.eyebrow": "THE NEXT BET",
+  "projects.recognition-and-rewards.progression.stages.0.phase": "Email Only",
+  "projects.recognition-and-rewards.progression.stages.1.phase": "Slack Integration",
+  "projects.recognition-and-rewards.progression.stages.2.phase": "Agent Release"
 }

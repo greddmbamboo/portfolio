@@ -120,12 +120,41 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
         </section>
       )}
 
+      {project.highlight && (
+        <section class="case-split-section">
+          <div>
+            <p class="eyebrow" data-edit={`projects.${project.slug}.highlight.eyebrow`}>{copy(`projects.${project.slug}.highlight.eyebrow`, project.highlight.eyebrow)}</p>
+            <h2 data-edit={`projects.${project.slug}.highlight.title`}>{copy(`projects.${project.slug}.highlight.title`, project.highlight.title)}</h2>
+          </div>
+          <p class="body-lede" data-edit={`projects.${project.slug}.highlight.body`}>{copy(`projects.${project.slug}.highlight.body`, project.highlight.body)}</p>
+        </section>
+      )}
+
       {isRecognitionCase && (
         <section class="bamboohr-figma-section" aria-label="Recognition feed and suggestion workflow">
           <div class="bamboohr-figma-canvas">
             <img src="/assets/work/bamboohr/recognition-composite.png" alt="BambooHR Recognition feed, suggestions, and edit dialog" loading="lazy" />
-            <p class="bamboohr-figma-caption">Suggestions appear beside the feed, and are delivered via email and Slack (if configured). Employees retain control of the recipient, message, values, points, privacy, and final send.</p>
+            <p class="bamboohr-figma-caption" data-edit={`projects.${project.slug}.employeeCaption`}>{copy(`projects.${project.slug}.employeeCaption`, 'The agent suggested a person, reason, and editable message. Employees kept control of values, points, privacy, and sending. Suggestions launched across Slack, email, and the platform; recognition could also be sent directly from Slack.')}</p>
           </div>
+        </section>
+      )}
+
+      {project.progression && (
+        <section class="case-progression" aria-label={project.progression.title}>
+          <p class="eyebrow" data-edit={`projects.${project.slug}.progression.eyebrow`}>{copy(`projects.${project.slug}.progression.eyebrow`, project.progression.eyebrow)}</p>
+          <h2 data-edit={`projects.${project.slug}.progression.title`}>{copy(`projects.${project.slug}.progression.title`, project.progression.title)}</h2>
+          <ol class="case-progression-stages">
+            {project.progression.stages.map((stage, i) => (
+              <li>
+                <p class="case-progression-period" data-edit={`projects.${project.slug}.progression.stages.${i}.period`}>{copy(`projects.${project.slug}.progression.stages.${i}.period`, stage.period)}</p>
+                <h3 data-edit={`projects.${project.slug}.progression.stages.${i}.phase`}>{copy(`projects.${project.slug}.progression.stages.${i}.phase`, stage.phase)}</h3>
+                <p class="case-progression-detail" data-edit={`projects.${project.slug}.progression.stages.${i}.detail`}>{copy(`projects.${project.slug}.progression.stages.${i}.detail`, stage.detail)}</p>
+                <p class="case-progression-audience" data-edit={`projects.${project.slug}.progression.stages.${i}.audience`}>{copy(`projects.${project.slug}.progression.stages.${i}.audience`, stage.audience)}</p>
+                <p class="case-progression-result" data-edit={`projects.${project.slug}.progression.stages.${i}.result`}>{copy(`projects.${project.slug}.progression.stages.${i}.result`, stage.result)}</p>
+              </li>
+            ))}
+          </ol>
+          <p class="case-progression-note" data-edit={`projects.${project.slug}.progression.note`}>{copy(`projects.${project.slug}.progression.note`, project.progression.note)}</p>
         </section>
       )}
 
@@ -155,28 +184,6 @@ const nextProject = publishedProjects[(currentIndex + 1) % publishedProjects.len
             </article>
           ))}
         </section>
-      )}
-
-      {project.highlight && (
-        <>
-          <section class="case-highlight">
-            <div class="highlight-copy">
-              <p class="eyebrow" data-edit={`projects.${project.slug}.highlight.eyebrow`}>{copy(`projects.${project.slug}.highlight.eyebrow`, project.highlight.eyebrow)}</p>
-              <h2 data-edit={`projects.${project.slug}.highlight.title`}>{copy(`projects.${project.slug}.highlight.title`, project.highlight.title)}</h2>
-              <p data-edit={`projects.${project.slug}.highlight.body`}>{copy(`projects.${project.slug}.highlight.body`, project.highlight.body)}</p>
-            </div>
-            <p class="highlight-stat">
-              <strong data-edit={`projects.${project.slug}.highlight.value`}>{copy(`projects.${project.slug}.highlight.value`, project.highlight.value)}</strong>
-              <span data-edit={`projects.${project.slug}.highlight.label`}>{copy(`projects.${project.slug}.highlight.label`, project.highlight.label)}</span>
-            </p>
-          </section>
-          {project.evidenceNote && (
-            <p class="highlight-disclaimer">
-              <span>Measurement context:</span>{' '}
-              <span data-edit={`projects.${project.slug}.evidenceNote`}>{copy(`projects.${project.slug}.evidenceNote`, project.evidenceNote)}</span>
-            </p>
-          )}
-        </>
       )}
 
       {!usesChapterLayout && <section class="outcome">

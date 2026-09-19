@@ -11,6 +11,7 @@ export type Project = {
   highlight?: { eyebrow: string; title: string; body: string; value: string; label: string };
   adminChapter?: { eyebrow: string; title: string; body: string };
   employeeChapter?: { eyebrow: string; title: string; body: string };
+  progression?: { eyebrow: string; title: string; stages: { phase: string; period: string; audience: string; detail: string; result: string }[]; note: string };
   galleryPairAfterDecisions?: boolean;
   gallery?: { src: string; alt: string; caption?: string; fit?: 'contain' | 'landscape-crop'; treatment?: 'paper' | 'clean'; overlay?: { src: string; alt: string } }[];
 };
@@ -24,9 +25,9 @@ export const projects: Project[] = [
     cover: '/assets/work/bamboohr/cover-illustrated.png',
     coverAlt: 'Illustrated BambooHR Recognition feed displayed on a desktop monitor',
     headline: 'Powerful enough for admins. Simple enough for everyone else.',
-    problem: 'Recognition & Rewards had to serve two very different jobs. Admins needed control over eligibility, points, rewards, and automation. Employees needed a fast, natural way to recognize someone. The challenge was to support both without making either experience inherit the other’s complexity.',
+    problem: 'Recognition & Rewards served two distinct groups. Admins needed a clear way to configure a flexible program. On the employee side, the challenge was participation: how could we make recognition a natural part of the workday instead of another destination people had to remember to visit? With industry participation averaging around 60%, we focused on reaching people where they worked and making each recognition easier to start.',
     context: 'Recognition was becoming table stakes in HR software. Matching the category was not enough; the product also had to make consequential setup decisions understandable and give employees a reason to participate once the program was live.',
-    role: 'I led product design across both sides of the experience: the Admin information architecture and point-allocation model, plus the employee composer and AI-suggestion patterns. I partnered with product, engineering, research, and customers from discovery through launch and post-launch iteration.',
+    role: 'I led product design for the admin setup and employee recognition flow, including the point-allocation model. I also helped shape the Slack integration and suggestion agent, working with product, engineering, research, and customers through launch.',
     adminChapter: {
       eyebrow: 'Chapter one / The Admin experience',
       title: 'Making a complex system understandable.',
@@ -34,8 +35,18 @@ export const projects: Project[] = [
     },
     employeeChapter: {
       eyebrow: 'Chapter two / The employee experience',
-      title: 'Removing the blank-page problem.',
-      body: 'Employees needed a lightweight social action, not another HR task. The core composer kept recipients, message, values, points, and privacy together. AI suggestions went further by identifying a relevant moment and giving the employee an editable starting point.'
+      title: 'Meet employees where they work.',
+      body: 'Recognition needed to fit into the workday, not ask employees to visit another destination. We focused on reaching people where they already worked and making each post easier to begin.'
+    },
+    progression: {
+      eyebrow: 'The release sequence',
+      title: 'From reminders to a useful starting point.',
+      stages: [
+        { phase: 'Email', period: 'Month 01', audience: 'About 800 signed-up users before Slack', detail: 'The initial launch used email notifications only. There was no Slack integration or suggestion agent.', result: 'Baseline' },
+        { phase: 'Slack', period: 'Month 02', audience: 'About 4,000 signed-up users before the agent', detail: 'Reminders reached employees in Slack, where they could send recognition without leaving their work.', result: '+14% posts' },
+        { phase: 'Agent', period: 'Month 03', audience: 'About 8,000 signed-up users when I left', detail: 'Editable suggestions launched across Slack, email, and the platform at the same time.', result: '+56% posts' }
+      ],
+      note: 'Both increases compare recognition posts with the original email-only baseline, adjusted for user growth. The 56% is total, not additive to 14%. Each phase lasted roughly a month. Microsoft Teams and mobile support remained on the 2027 roadmap.'
     },
     approach: [
       { title: 'Create a map before exposing controls', body: 'I organized the Admin hub into Recognition Settings, Rewards Settings, and Additional Features. Short descriptions and a single Edit or Set Up action made the system scannable while clarifying that recognition could operate without rewards.' },
@@ -48,19 +59,19 @@ export const projects: Project[] = [
       { title: 'Keep flexibility from becoming noise', body: 'Groups, managers, and individuals share a consistent allocation model, while conditional controls reveal details such as per-direct-report and flat-rate calculations only when they become relevant.' }
     ],
     highlight: {
-      eyebrow: 'Early outcome',
-      title: 'A timely suggestion made recognition easier to start.',
-      body: 'Suggestions surfaced a person, reason, editable message, company value, and point amount. Employees could edit, send, or dismiss the suggestion, preserving authorship instead of automating appreciation invisibly. The 56% increase supported our hypothesis that reducing the friction of beginning a recognition post would increase engagement.',
+      eyebrow: 'The next bet',
+      title: 'The agent has entered the chat.',
+      body: 'Email set the baseline. Slack brought an early lift by putting reminders and posting into the flow of work, but people still had to decide whom to recognize and what to say. We believed an agent could help them turn that intention into a personal message.',
       value: '56%',
-      label: 'increase in engagement after AI-suggested recognition was introduced'
+      label: 'more recognition posts after agent launch vs. the email-only baseline'
     },
     outcomes: [
-      { value: '56%', label: 'increase in engagement after AI suggestions launched' },
+      { value: '56%', label: 'more recognition posts than the email-only baseline after the agent launched' },
       { value: '2', label: 'customer-led feature families shipped' },
-      { value: '1 mo.', label: 'available post-launch signal window' }
+      { value: '1 mo.', label: 'approximate observation window after each release' }
     ],
-    outcomeCopy: 'The 56% engagement increase was the clearest early signal: reducing the effort required to begin a recognition helped more employees participate. Post-launch customer conversations also led us to ship more granular point allocations and automated birthday and anniversary recognition.',
-    evidenceNote: 'The product had been live for roughly one month when I left BambooHR, so the 56% increase should be read as an early engagement signal rather than proof of sustained adoption.',
+    outcomeCopy: 'Recognition posts rose about 14% after Slack launched and 56% after the agent launched, both relative to the email-only baseline and adjusted for user growth. These short observation windows were encouraging, but did not establish sustained adoption or isolate the effect of each feature.',
+    evidenceNote: 'The comparison accounts for growth in signed-up users. Each phase lasted about a month, so these are early observations—not proof of sustained adoption or either feature’s independent effect.',
     gallery: [
       { src: '/assets/work/bamboohr/settings.png', alt: 'Recognition and Rewards settings organized into recognition, rewards, and optional features', caption: 'The settings hub gives Admins a map of the system before asking them to configure it.' },
       { src: '/assets/work/bamboohr/feed.png', alt: 'Recognition feed with posts, reactions, point balances, and contextual AI suggestions', caption: 'Suggestions appear beside the feed at moments employees already associate with recognition.' },
