@@ -64,5 +64,8 @@
     "padding-bottom": "0",
     "padding-top": "200x",
     "margin-top": "100px"
+  },
+  ".project-info": {
+    "padding-top": "24px"
   }
 }

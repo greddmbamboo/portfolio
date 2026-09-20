@@ -43,5 +43,7 @@
   "projects.recognition-and-rewards.highlight.eyebrow": "THE NEXT BET",
   "projects.recognition-and-rewards.progression.stages.0.phase": "Email Only",
   "projects.recognition-and-rewards.progression.stages.1.phase": "Slack Integration",
-  "projects.recognition-and-rewards.progression.stages.2.phase": "Agent Release"
+  "projects.recognition-and-rewards.progression.stages.2.phase": "Agent Release",
+  "aiProjects.jobFinder.title": "Signal: Personal Job Finder",
+  "aiProjects.jobFinder.description": "If you've ever done a manual job search, you know its a mess out there. Signal pulls from public job feeds and employer sites, normalizes the listings, and scores both role fit and posting confidence against custom preferences. I can triage opportunities and track applications without losing the original listing."
 }

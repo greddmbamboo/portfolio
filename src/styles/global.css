@@ -113,6 +113,12 @@ a:focus-visible { outline:3px solid #5c61ff; outline-offset:5px; }
 .project-card:not(.featured) .story-outcome strong { font-size:clamp(34px,4vw,54px); }
 .project-card:not(.featured) .story-outcome span { max-width:76px; font-size:8px; }
 .project-card:not(.featured) .story-photo figcaption { right:10px; bottom:10px; font-size:7px; }
+.ai-projects { padding-top:0; }
+.ai-projects .section-heading h2 { font-size:12px; }
+.ai-project-image { background:var(--ink); }
+.ai-project-cta { display:inline-flex; align-items:center; gap:12px; margin-top:22px; border-bottom:1px solid currentColor; padding-bottom:2px; font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.ai-project-link:hover .ai-project-cta span { transform:translate(3px,-3px); }
+.ai-project-cta span { display:inline-block; transition:transform .25s; }
 .story-visual { position:relative; overflow:hidden; padding:8%; color:var(--ink); }
 .story-visual--yellow { background:#f2d21b; }
 .concept-label { position:absolute; top:5%; right:6%; margin:0; font-size:8px; font-weight:600; letter-spacing:.12em; }
