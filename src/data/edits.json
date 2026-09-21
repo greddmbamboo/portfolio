@@ -47,5 +47,6 @@
   "aiProjects.jobFinder.title": "Signal: Personal Job Finder",
   "aiProjects.jobFinder.description": "If you've ever done a manual job search, you know its a mess out there. Signal pulls from public job feeds and employer sites, verifies and de-dupes the listings, then scores them for fit and confidence against my custom preferences. I can triage opportunities and track applications without losing the original listing.",
   "aiProjects.iconFinder.description": "I kept wasting time looking for the right icon. Icon Finder brings five libraries into one searchable catalog, connects everyday concepts to icon names, and ranks the results by relevance. Variants stay grouped, and the detail panel gives me the exact React import or, Unicode value (when available).",
-  "home.intro": "Product design leader connecting customer data with business strategy for actionable insights that solve real customer problems."
+  "home.intro": "Product design leader connecting customer data with business strategy for actionable insights that solve real customer problems.",
+  "aiProjects.heading": "PERSONAL AI BUILDS"
 }
