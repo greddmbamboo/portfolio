@@ -54,8 +54,12 @@ const layoutOverrideCss = Object.entries(layoutEdits)
           <path d="M27.1159 5.5303l-.085.0006c-3.3425.0423-6.2258 2.5818-6.6045 5.8387l-.05.3889c-.1966 1.3269-.6475 2.5708-1.3019 3.6807 4.1463 2.1788 6.9743 6.5272 6.9743 11.5364C26.0488 34.1688 20.2176 40 13.0244 40S0 34.1688 0 26.9756h6.304c-.0005.0343-.0008.0685-.0008.1028 0 3.7688 3.0552 6.824 6.824 6.824s6.824-3.0552 6.824-6.824c0-3.7687-3.0421-6.6942-6.8109-6.6942-.6946 0-1.301.0341-1.9384.0592-.3155.0293-.635.0444-.958.0444C4.5864 20.4878 0 15.9015 0 10.2439S4.5864 0 10.2439 0c3.2436 0 6.1349 1.5076 8.0119 3.8602C20.4647 1.4855 23.6168 0 27.1159 0ZM10.2439 5.561a4.6829 4.6829 0 1 0 0 9.3658 4.6829 4.6829 0 0 0 0-9.3658Z" />
         </svg>
       </a>
-      <nav aria-label="Primary navigation">
+      <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <nav id="primary-navigation" aria-label="Primary navigation">
         <a href="/#work">Work</a>
+        <a href="/#fun-timez">AI Builds</a>
         <a href="/#leadership">Leadership</a>
         <a href="/#about">About</a>
         <a href="mailto:gaige@gaigeredd.com">Contact</a>
@@ -74,5 +78,56 @@ const layoutOverrideCss = Object.entries(layoutEdits)
     </footer>
     {import.meta.env.DEV && <InlineEditor />}
     {import.meta.env.DEV && <LayoutEditor />}
+    <script>
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const menuToggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+      const navigation = header?.querySelector<HTMLElement>('#primary-navigation');
+      const mobileHeader = window.matchMedia('(max-width: 760px)');
+
+      if (header && menuToggle && navigation) {
+        let lastScrollY = window.scrollY;
+
+        const setMenuOpen = (open: boolean) => {
+          header.classList.toggle('menu-open', open);
+          header.classList.remove('is-hidden');
+          menuToggle.setAttribute('aria-expanded', String(open));
+          menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        };
+
+        menuToggle.addEventListener('click', () => {
+          setMenuOpen(!header.classList.contains('menu-open'));
+        });
+        navigation.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setMenuOpen(false));
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && header.classList.contains('menu-open')) {
+            setMenuOpen(false);
+            menuToggle.focus();
+          }
+        });
+        document.addEventListener('click', (event) => {
+          if (header.classList.contains('menu-open') && !header.contains(event.target as Node)) {
+            setMenuOpen(false);
+          }
+        });
+        mobileHeader.addEventListener('change', () => {
+          setMenuOpen(false);
+          lastScrollY = window.scrollY;
+        });
+        window.addEventListener('scroll', () => {
+          const currentScrollY = Math.max(window.scrollY, 0);
+          if (!mobileHeader.matches || header.classList.contains('menu-open') || currentScrollY < 80) {
+            header.classList.remove('is-hidden');
+            lastScrollY = currentScrollY;
+            return;
+          }
+          const change = currentScrollY - lastScrollY;
+          if (Math.abs(change) < 6) return;
+          header.classList.toggle('is-hidden', change > 0);
+          lastScrollY = currentScrollY;
+        }, { passive: true });
+      }
+    </script>
   </body>
 </html>

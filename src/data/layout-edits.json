@@ -67,5 +67,8 @@
   },
   ".project-info": {
     "padding-top": "24px"
+  },
+  "[data-page=\"/\"] #main > section.hero:nth-of-type(1) > div.hero-bottom > p": {
+    "width": "400px"
   }
 }
